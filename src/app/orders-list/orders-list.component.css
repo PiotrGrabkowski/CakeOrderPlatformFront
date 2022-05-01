@@ -1,0 +1,67 @@
+body, html {
+height: 100%;
+
+}
+
+table{
+
+    width: 100%;
+    
+
+}
+
+.details{
+
+    text-decoration-line: underline;
+    padding: 1em;
+
+}
+.details:hover{
+
+    cursor: pointer;
+}
+.green{
+
+    background-color: #a0c270;
+    padding-left: 1em;
+
+}
+.grey{
+    background-color: #c2bebc;
+    padding-left: 1em;
+
+}
+.yellow{
+    background-color: #ffc14d;
+    padding-left: 1em;
+
+}
+.my-mat-card{
+
+    margin: 1em;
+    opacity: 0.9;
+}
+.mat-card-container{
+    padding-top: 2em;
+background-image: url('../../assets/images/sag3.jpg');
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100%;
+
+
+}
+
+.rows{
+
+   
+    
+}
+
+.button-container{
+
+    display: flex;
+    justify-content: space-between;
+}
+

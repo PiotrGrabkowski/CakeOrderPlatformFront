@@ -1,0 +1,48 @@
+
+<mat-toolbar class = "mattool1">
+  <div>
+    <span class = "toolbarButtons"  (click) = "changeSidenavState()">Menu</span>
+    </div>
+    <div>
+   
+   
+  
+    <span *ngIf ="!isUserLoggedIn" class = "toolbarButtons" (click) = "onNavigateClick('login')">Logowanie</span> 
+    <span *ngIf ="isUserLoggedIn" class = "toolbarButtons" (click) = "onLogoutButtonClick()">Wyloguj</span> 
+
+    
+    
+    </div>
+    
+</mat-toolbar>
+<mat-toolbar class = "mattool2">
+  <span class = "toolbarButtons" (click) = "onNavigateClick('order')"> Złóż zamówienie</span>
+  <span class = "toolbarButtons"  (click) = "onNavigateClick('start')">O nas</span>
+  <span class = "toolbarButtons" (click) = "onNavigateClick('gallery')">Galeria</span>
+  <span class = "toolbarButtons" (click) = "onNavigateClick('register')">Załóż konto</span>
+  <span class = "toolbarButtons">Kontakt</span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav mode = "side" [opened] = "sidenavOpened">
+      <div class = "sideNavContainer">  
+        <span class = "toolbarButtons"  [matMenuTriggerFor]="menuRef">Panel administratora</span>
+        <span class = "toolbarButtons">Moje konto</span>
+      </div>
+    </mat-sidenav>
+
+    
+
+   
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    
+</mat-sidenav-container>
+
+<mat-menu #menuRef="matMenu">
+  <button mat-menu-item (click) = "onNavigateClick('ordersList')"> Obsługa zamówień </button>
+  <button mat-menu-item > Zarządzanie użytkownikami</button>
+  <button mat-menu-item (click) = "onNavigateClick('galleryEdition')"> Edycaj galerii</button>
+  <button mat-menu-item > Ustawienia</button>
+</mat-menu>

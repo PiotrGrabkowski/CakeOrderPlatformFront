@@ -1,0 +1,44 @@
+.mattool1{
+  
+    background-color:#e9897e; color: white;
+    justify-content: space-between;
+}
+.mattool2{
+
+    background-color: #857c7a;
+    justify-content: space-evenly;
+    color: white;
+    height: 8%;
+   
+   
+}
+
+.toolbarButtons{
+padding: 0.5em;
+
+}
+.toolbarButtons:hover{
+    cursor: pointer;
+
+}
+mat-sidenav-container{
+
+    height: 100%;
+    
+}
+mat-sidenav{
+    background-color:#f0afa8; color: white;
+    font-size: 150%;
+    
+    min-width: 25%;
+ 
+
+}
+.sideNavContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}

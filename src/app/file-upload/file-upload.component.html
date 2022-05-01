@@ -1,0 +1,34 @@
+<div class="mat-card-container">
+
+    
+    <mat-card class = "mat-card">
+        <mat-card-header>
+     Dodawanie zdjęcia do galerii
+        </mat-card-header>
+     
+        <mat-card-content>
+
+            <mat-label>Plik ze zdjeciem</mat-label>
+    <input type ="file" style = "display : none;" (change) = "onFile1InputChage($event)"  #file1Upload>
+    <button mat-mini-fab class = "buttons" (click) = "file1Upload.click()"><mat-icon>attach_file</mat-icon></button>
+    <p *ngIf = "isChosenFile1Visible">Wybrano plik: {{chosenFile1Name}}</p>
+
+    <input type ="file" style = "display : none;" (change) = "onFile2InputChage($event)"  #file2Upload>
+    <button mat-mini-fab class = "buttons" (click) = "file2Upload.click()"><mat-icon>attach_file</mat-icon></button>
+    <p *ngIf = "isChosenFile2Visible">Wybrano plik: {{chosenFile2Name}}</p>
+
+    <mat-form-field>
+        <input matInput [(ngModel)] = "description">
+
+    </mat-form-field>
+
+           
+<button class = "buttons" mat-raised-button (click)="sendFile()">Dodaj</button>
+
+    </mat-card-content>
+    </mat-card>
+    
+
+</div>
+
+

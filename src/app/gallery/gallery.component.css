@@ -1,0 +1,51 @@
+body, html {
+    height: 100%;
+    
+    }
+ 
+.container{
+    padding-top: 2em;
+background-image: url('../../assets/images/sag3.jpg');
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100%;
+
+
+
+}
+
+
+.imageContainer{
+
+    background-color: white;
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 2em;
+    opacity: 0.9;
+    display: flex;
+    justify-content:space-around;
+    height: 90%;
+    flex-wrap: wrap;
+   
+}
+
+
+
+img {
+    transition-property: transform, filter;
+    transition-duration: 1s;
+    flex-grow: 1;
+
+    
+
+}
+
+img:hover{
+
+    transform: scale(0.9);
+    filter:grayscale(0.7);
+    cursor: pointer;
+}
+

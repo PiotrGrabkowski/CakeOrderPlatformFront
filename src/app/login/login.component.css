@@ -1,0 +1,85 @@
+body, html{
+
+    height: 100%;
+    
+    }
+    form{
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+        padding: 5em;
+        width: 10em;
+    
+        
+        
+    
+      
+    
+    }
+    mat-form-field{
+        width: 150%;
+
+
+    }
+    mat-icon:hover{
+
+        cursor: pointer;
+    }
+    
+    .formContainer{
+    
+    
+        background-image: url('../../assets/images/sag3.jpg');
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        padding: 5em;
+        
+    
+        height: 100%;
+    
+        display : flex;
+        flex-direction: column;
+        align-items: center;
+    
+    
+    }
+
+    .error{
+
+     
+     
+        padding: 1em;
+        width: max-content;
+        
+
+    }
+    
+    
+    
+    .buttons {
+    
+    background-color: #857c7a;
+    color : white;
+    }
+    .additionalFunctionalities{
+
+        margin-top:  2em;
+
+        text-decoration-line: underline;
+
+
+    }
+    .additionalFunctionalities:hover{
+
+        cursor: pointer;
+    }
+
+    .mat-card{
+
+        opacity: 0.9;
+    }

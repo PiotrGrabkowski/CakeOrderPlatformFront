@@ -1,0 +1,29 @@
+body, html{
+    height : 100%;
+    
+    }
+    
+    .div1{
+    
+    background-image: url('../../assets/images/sag4.jpg');
+    height: 70%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    
+    }
+    .div2{
+    padding: 3em;
+    
+    }
+    .div3{
+        background-image: url('../../assets/images/sag3.jpg');
+    height: 70%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    
+    
+    }

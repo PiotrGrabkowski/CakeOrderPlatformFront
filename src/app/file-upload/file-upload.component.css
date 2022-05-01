@@ -1,0 +1,28 @@
+body, html{
+
+    height: 100%;
+}
+
+.mat-card-container{
+    padding-top: 2em;
+background-image: url('../../assets/images/sag3.jpg');
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100%;
+
+
+}
+.my-mat-card{
+
+    margin: 1em;
+    opacity: 0.9;
+}
+
+.buttons {
+    
+    background-color: #857c7a;
+    color : white;
+    }
+
