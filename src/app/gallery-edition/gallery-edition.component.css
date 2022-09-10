@@ -1,0 +1,89 @@
+body, html {
+    height: 100%;
+    
+    }
+ 
+.container{
+    padding-top: 2em;
+background-image: url('../../assets/images/sag3.jpg');
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100%;
+
+
+
+}
+
+
+.imageContainer{
+
+    --numOfCol : 4;
+    --heightOfImg : 500px;
+    --gap : 15px;
+
+    background-color: white;
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 2em;
+    opacity: 0.9;
+    display: grid;
+    grid-template-columns: repeat(var(--numOfCol), 1fr);
+    grid-auto-rows: var(--heightOfImg);
+    gap: var(--gap);
+    
+    height: 90%;
+    
+   
+}
+
+
+
+img {
+    transition-property: transform, filter;
+    transition-duration: 1s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    
+
+}
+
+img:hover{
+
+    transform: scale(0.9);
+    filter:grayscale(0.7);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px){
+    .imageContainer{
+
+        --numOfCol : 3;
+        --heightOfImg : 400px;
+
+
+    }
+
+    
+}
+@media screen and (max-width : 700px) {
+    .imageContainer{
+
+        --numOfCol : 2;
+        --heightOfImg : 300px;
+
+
+    }
+    
+}
+@media screen and (max-width: 500px){
+
+    .imageContainer{
+
+        --numOfCol : 1;
+        
+    }
+}

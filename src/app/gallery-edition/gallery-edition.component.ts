@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GalleryService } from '../gallery.service';
+import { Image } from '../model/Image';
 
 @Component({
   selector: 'app-gallery-edition',
@@ -8,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class GalleryEditionComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  listOfImages : Array<Image> = [];
+
+  constructor(private router: Router, private galleryService : GalleryService) { }
 
   ngOnInit(): void {
+    this.galleryService.getWholeGallery().subscribe(gallery => {
+      this.listOfImages = gallery;});
   }
   public addToGallery(){
 

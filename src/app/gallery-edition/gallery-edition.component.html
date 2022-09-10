@@ -1,3 +1,12 @@
-<p>gallery-edition works!</p>
 
- <button mat-raised-button (click)="addToGallery()">Dodaj zdjęcie do galerii</button>
+
+ 
+ <div class="container">
+    <button mat-raised-button (click)="addToGallery()"><mat-icon>add</mat-icon>Dodaj zdjęcie do galerii</button>
+
+    <div class = "imageContainer" >
+    
+        <img *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
+            
+    </div>
+</div>

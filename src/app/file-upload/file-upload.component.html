@@ -9,13 +9,11 @@
         <mat-card-content>
 
             <mat-label>Plik ze zdjeciem</mat-label>
-    <input type ="file" style = "display : none;" (change) = "onFile1InputChage($event)"  #file1Upload>
-    <button mat-mini-fab class = "buttons" (click) = "file1Upload.click()"><mat-icon>attach_file</mat-icon></button>
-    <p *ngIf = "isChosenFile1Visible">Wybrano plik: {{chosenFile1Name}}</p>
+    <input type ="file" style = "display : none;" (change) = "onFileInputChage($event)"  #fileUpload>
+    <button mat-mini-fab class = "buttons" (click) = "fileUpload.click()"><mat-icon>attach_file</mat-icon></button>
+    <p *ngIf = "isChosenFileVisible">Wybrano plik: {{chosenFileName}}</p>
 
-    <input type ="file" style = "display : none;" (change) = "onFile2InputChage($event)"  #file2Upload>
-    <button mat-mini-fab class = "buttons" (click) = "file2Upload.click()"><mat-icon>attach_file</mat-icon></button>
-    <p *ngIf = "isChosenFile2Visible">Wybrano plik: {{chosenFile2Name}}</p>
+
 
     <mat-form-field>
         <input matInput [(ngModel)] = "description">

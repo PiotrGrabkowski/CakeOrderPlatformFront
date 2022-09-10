@@ -12,14 +12,9 @@ import { GalleryService } from '../gallery.service';
 })
 export class FileUploadComponent implements OnInit {
 
-  isChosenFile1Visible: boolean = false;
-  chosenFile1Name: string;
-  chosenFile1 : File;
-
-  isChosenFile2Visible: boolean = false;
-  chosenFile2Name: string;
-  chosenFile2 : File;
-
+  isChosenFileVisible: boolean = false;
+  chosenFileName: string;
+  chosenFile : File;
   description : string = '';
 
   constructor( private router : Router, private galleryService : GalleryService) {
@@ -31,33 +26,23 @@ export class FileUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onFile1InputChage(event){
+  onFileInputChage(event){
 
      const file: File = event.target.files[0];
 
-     this.chosenFile1Name = file.name;
-     this.chosenFile1 = file;
+     this.chosenFileName = file.name;
+     this.chosenFile = file;
 
 
-     this.isChosenFile1Visible = true;
+     this.isChosenFileVisible = true;
 
 
   }
-  onFile2InputChage(event){
 
-    const file: File = event.target.files[0];
-
-    this.chosenFile2Name = file.name;
-    this.chosenFile2 = file;
-
-    this.isChosenFile2Visible = true;
-
-
- }
 
   sendFile(){
 
-   this.galleryService.uploadFile(this.chosenFile1, this.chosenFile2, this.description)
+   this.galleryService.uploadFile(this.chosenFile, this.description)
     .subscribe((response : HttpResponse<Object>)=>{
 
       var responseBody = response.body.toString();

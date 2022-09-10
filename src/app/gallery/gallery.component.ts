@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
 import { GalleryService } from '../gallery.service';
-import { GalleryItem } from '../model/GalleryItem';
+
+import { Image } from '../model/Image';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { GalleryItem } from '../model/GalleryItem';
 export class GalleryComponent implements OnInit {
 
   albums= [];
-  galleryItems : Array<GalleryItem> = [];
+  listOfImages : Array<Image> = [];
 
 
   constructor(private _lightbox: Lightbox, private galleryService : GalleryService) { 
@@ -23,12 +24,13 @@ export class GalleryComponent implements OnInit {
   ngOnInit(): void {
 
     this.galleryService.getWholeGallery().subscribe(gallery => {
-      this.galleryItems = gallery;
-      console.log(this.galleryItems);
-      for(let j = 0; j< this.galleryItems.length; j++){
-        const src = this.galleryItems[j].image.url;
-        const caption = this.galleryItems[j].description;
-        const thumb = this.galleryItems[j].imageThumb.url;
+      this.listOfImages = gallery;
+      
+      for(let j = 0; j< this.listOfImages.length; j++){
+        const src = this.listOfImages[j].url;
+        const caption = this.listOfImages[j].description;
+        const thumb = this.listOfImages[j].url;
+        console.log(thumb);
         const album = {
 
           src : src,
