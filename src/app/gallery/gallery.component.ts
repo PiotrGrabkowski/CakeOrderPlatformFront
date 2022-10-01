@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
+import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { GalleryService } from '../gallery.service';
 
 import { Image } from '../model/Image';
@@ -16,7 +17,9 @@ export class GalleryComponent implements OnInit {
   listOfImages : Array<Image> = [];
 
 
-  constructor(private _lightbox: Lightbox, private galleryService : GalleryService) { 
+  constructor(private _lightbox: Lightbox, 
+    private galleryService : GalleryService,
+    private displayer: DisplayingComponentsSmoothlyService) { 
 
 
   }
@@ -42,7 +45,9 @@ export class GalleryComponent implements OnInit {
 
       }
 
-    })
+    });
+
+    this.displayer.dipslayFromBottom("gallery-image-container");
   }
 
   open(index: number): void {

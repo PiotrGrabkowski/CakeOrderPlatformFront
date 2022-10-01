@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 
 @Component({
   selector: 'app-order',
@@ -9,10 +10,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class OrderComponent implements OnInit {
 
   formGroup: FormGroup;
-  constructor() { }
+  constructor(private displayer: DisplayingComponentsSmoothlyService) { }
 
   ngOnInit(): void {
     this.createFormGroup();
+    this.displayer.dipslayFromBottom("order-mat-card");
   }
 
   createFormGroup (){

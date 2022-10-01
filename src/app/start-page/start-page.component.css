@@ -2,8 +2,13 @@ body, html{
     height : 100%;
     
     }
+    h1{
+
+        text-align: center;
     
-    .div1{
+    }
+    
+    .picture1{
     
     background-image: url('../../assets/images/sag4.jpg');
     height: 70%;
@@ -13,11 +18,12 @@ body, html{
     background-size: cover;
     
     }
-    .div2{
+    .content{
     padding: 3em;
     
+    
     }
-    .div3{
+    .picture2{
         background-image: url('../../assets/images/sag3.jpg');
     height: 70%;
     background-repeat: no-repeat;

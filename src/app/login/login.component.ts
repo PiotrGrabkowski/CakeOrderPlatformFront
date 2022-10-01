@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { LoginHttpService } from '../login-http.service';
 import { LoginRequest } from '../model/LoginRequest';
 
@@ -28,7 +29,10 @@ export class LoginComponent implements OnInit {
 
 
 
-    constructor(private router: Router, private loginHttp : LoginHttpService, private activatedRoute : ActivatedRoute) { 
+    constructor(private router: Router, 
+      private loginHttp : LoginHttpService, 
+      private activatedRoute : ActivatedRoute,
+      private displayer: DisplayingComponentsSmoothlyService) { 
       
     }
   
@@ -59,7 +63,8 @@ export class LoginComponent implements OnInit {
           this.isErrorDisplayed = true;
 
         }
-      })
+      });
+      this.displayer.dipslayFromBottom("login-mat-card");
 
      
     }

@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { RegisterRequest } from '../model/RegisterRequest';
 import { RegisterService } from '../register.service';
 
@@ -13,12 +14,15 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
 
   formGroup: FormGroup;
-  constructor(private router: Router, private registerService: RegisterService) {
+  constructor(private router: Router, 
+    private registerService: RegisterService,
+    private displayer: DisplayingComponentsSmoothlyService) {
 
   }
 
   ngOnInit(): void {
     this.createFormGroup();
+    this.displayer.dipslayFromBottom("register-mat-card");
 
   }
   createFormGroup() {
@@ -50,7 +54,7 @@ export class RegisterComponent implements OnInit {
     return false;
 
   }
-  
+
   public onSubmit(): void {
     let msg: string;
     const registerRequest: RegisterRequest = Object.assign({}, this.formGroup.value);

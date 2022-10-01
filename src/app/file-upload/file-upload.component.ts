@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 
 import { GalleryService } from '../gallery.service';
 
@@ -17,13 +18,16 @@ export class FileUploadComponent implements OnInit {
   chosenFile : File;
   description : string = '';
 
-  constructor( private router : Router, private galleryService : GalleryService) {
+  constructor( private router : Router, 
+    private galleryService : GalleryService,
+    private displayer: DisplayingComponentsSmoothlyService) {
        
 
 
      }
 
   ngOnInit(): void {
+    this.displayer.dipslayFromBottom("file-upload-mat-card");
   }
 
   onFileInputChage(event){
