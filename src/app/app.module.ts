@@ -34,6 +34,7 @@ import { GalleryService } from './gallery.service';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { ErrorInterceptorService } from './error-interceptor.service';
 import { RegisterService } from './register.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RegisterService } from './register.service';
     ResponseViewComponent,
     GalleryEditionComponent,
     FileUploadComponent,
-    GalleryComponent
+    GalleryComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -13,72 +13,63 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
 
   formGroup: FormGroup;
-  constructor(private router: Router, private registerService: RegisterService) { 
-    
-  }
+  constructor(private router: Router, private registerService: RegisterService) {
 
- 
-  
- 
+  }
 
   ngOnInit(): void {
     this.createFormGroup();
-   
+
   }
-  createFormGroup (){
-
-
+  createFormGroup() {
 
     this.formGroup = new FormGroup({
 
-      username : new FormControl('', [Validators.required, Validators.email]),
-      password : new FormControl('', Validators.required),
-      nickname : new FormControl('', Validators.required),
-      phoneNumber : new FormControl('', Validators.required)
+      username: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+      nickname: new FormControl('', Validators.required),
+      phoneNumber: new FormControl('', Validators.required)
 
     });
 
   }
-  public checkIfFieldIsEmpty(nameOfField: string): boolean{
-    if(this.formGroup.get(nameOfField).hasError('required') && this.formGroup.get(nameOfField).touched){
+  public checkIfFieldIsEmpty(nameOfField: string): boolean {
+    if (this.formGroup.get(nameOfField).hasError('required') && this.formGroup.get(nameOfField).touched) {
 
       return true;
     }
     return false;
   }
 
+  public checkIfEmailIsInvalid(): boolean {
 
-
-  public checkIfEmailIsInvalid(): boolean{
-
-    if(this.formGroup.get('username').hasError('email') && this.formGroup.get('username').touched){
+    if (this.formGroup.get('username').hasError('email') && this.formGroup.get('username').touched) {
 
       return true;
     }
     return false;
 
   }
-
-
+  
   public onSubmit(): void {
-    let msg : string;
-    const registerRequest : RegisterRequest = Object.assign({}, this.formGroup.value);
+    let msg: string;
+    const registerRequest: RegisterRequest = Object.assign({}, this.formGroup.value);
     this.registerService.registerUser(registerRequest).subscribe(
-      (response: HttpResponse<Object>)=> {
-          msg = response.body.toString();
-          this.router.navigate(['responseView/' + msg]);
+      (response: HttpResponse<Object>) => {
+        msg = response.body.toString();
+        this.router.navigate(['responseView/' + msg]);
       },
 
       (error: HttpErrorResponse) => {
 
         let msg = error.error;
         let status = error.status;
-        console.log ("status: " + status +", wiadomosc: " + msg);
+        console.log("status: " + status + ", wiadomosc: " + msg);
 
-        this.router.navigate(['login', {errorMsg : msg}]);
+        this.router.navigate(['login', { errorMsg: msg }]);
       }
 
-      
+
 
     );
 
@@ -87,11 +78,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  public isFormNotValid(): boolean{
+  public isFormNotValid(): boolean {
 
     return !this.formGroup.valid;
   }
-  public routToLogin(){
+  public routToLogin() {
 
     this.router.navigate(['/login']);
   }

@@ -30,7 +30,7 @@ export class GalleryComponent implements OnInit {
         const src = this.listOfImages[j].url;
         const caption = this.listOfImages[j].description;
         const thumb = this.listOfImages[j].url;
-        console.log(thumb);
+        
         const album = {
 
           src : src,
