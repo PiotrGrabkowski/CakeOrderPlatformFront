@@ -2,26 +2,33 @@
 
     
     <mat-card id = "file-upload-mat-card" class = "mat-card">
-        <mat-card-header>
-     Dodawanie zdjęcia do galerii
-        </mat-card-header>
-     
-        <mat-card-content>
-
-            <mat-label>Plik ze zdjeciem</mat-label>
+        
+        <mat-card-content class="divs-container">
+            <div class="header-div"><h1>Dodawanie zdjęcia do galerii</h1></div>
+            <div class="img-header-div header-divs"><span>Zdjęcie:</span></div>
+            <div class ="img-div"><app-spinner *ngIf="spinnerDisplayed"></app-spinner></div>
+            <div class="description-header-div header-divs"><span>Opis zdjęcia:</span></div>
+            <div class="description-div">
+                <mat-form-field>
+                    <input matInput [(ngModel)] = "description">
+            
+                </mat-form-field>
+            </div>
+            <div class="choosing-file-button-div"><button mat-mini-fab class = "buttons" (click) = "fileUpload.click()"><mat-icon>attach_file</mat-icon></button></div>
+            <div class="upload-button-div"><button class = "buttons" mat-raised-button (click)="sendFile()">Dodaj</button></div>
+            
     <input type ="file" style = "display : none;" (change) = "onFileInputChage($event)"  #fileUpload>
-    <button mat-mini-fab class = "buttons" (click) = "fileUpload.click()"><mat-icon>attach_file</mat-icon></button>
+    
+
+
     <p *ngIf = "isChosenFileVisible">Wybrano plik: {{chosenFileName}}</p>
 
 
 
-    <mat-form-field>
-        <input matInput [(ngModel)] = "description">
-
-    </mat-form-field>
+  
 
            
-<button class = "buttons" mat-raised-button (click)="sendFile()">Dodaj</button>
+
 
     </mat-card-content>
     </mat-card>

@@ -3,6 +3,9 @@ html {
 
     height: 100%;
 }
+h1{
+    text-align: center;
+}
 
 .mat-card-container {
     padding-top: 2em;
@@ -16,14 +19,90 @@ html {
 
 }
 
-.my-mat-card {
+.mat-card {
 
     margin: 1em;
     opacity: 0.9;
+    height: 80%;
 }
 
 .buttons {
 
     background-color: #857c7a;
     color: white;
+}
+
+.divs-container{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    grid-template-rows: 0.5fr 3fr 1.5fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 1em;
+    height : 100%;
+
+}
+.header-divs{
+    background-color: #e9897e;
+    color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+}
+.header-div{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+
+}
+.img-header-div{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+}
+.img-div{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+}
+.description-header-div{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+
+}
+.description-div{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+
+
+}
+.choosing-file-button-div{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
+
+}
+.upload-button-div{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+
 }
