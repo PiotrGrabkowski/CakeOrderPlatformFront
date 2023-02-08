@@ -35,6 +35,7 @@ import { JwtInterceptorService } from './jwt-interceptor.service';
 import { ErrorInterceptorService } from './error-interceptor.service';
 import { RegisterService } from './register.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     GalleryEditionComponent,
     FileUploadComponent,
     GalleryComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

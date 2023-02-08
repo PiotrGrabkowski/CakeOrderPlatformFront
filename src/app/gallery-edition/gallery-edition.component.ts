@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Config } from '../config/config';
 import { GalleryService } from '../gallery.service';
 import { Image } from '../model/Image';
 
@@ -11,6 +12,7 @@ import { Image } from '../model/Image';
 export class GalleryEditionComponent implements OnInit {
 
   listOfImages : Array<Image> = [];
+  chosenImage : Image;
 
   constructor(private router: Router, private galleryService : GalleryService) { }
 
@@ -23,5 +25,24 @@ export class GalleryEditionComponent implements OnInit {
     this.router.navigate(['fileUpload']);
 
   }
+
+  public clickImage(image: Image){
+    this.chosenImage = image;
+
+  }
+
+  public deleteImage(){
+
+    const url : string = Config.SERVERBASEURL + '/image/' + this.chosenImage.publicId;
+    const msg : string = 'Czy na pewno chcesz usunąć to zdjęcie?';
+    this.router.navigate(['confirmation/' + url +"/" + msg]);
+
+
+  }
+  public changeDesciption(){
+
+
+  }
+
 
 }

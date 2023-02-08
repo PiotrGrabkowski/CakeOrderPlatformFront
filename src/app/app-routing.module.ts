@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { GalleryEditionComponent } from './gallery-edition/gallery-edition.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
 {path: 'galleryEdition', component : GalleryEditionComponent},
 {path : 'fileUpload', component : FileUploadComponent},
 {path : 'gallery', component : GalleryComponent},
-{path : 'confirmRegistration/:token', component: RegisterConfirmationComponent}
+{path : 'confirmRegistration/:token', component: RegisterConfirmationComponent},
+{path : 'confirmation/:url/:msg', component : ConfirmationComponent}
 ];
 
 @NgModule({

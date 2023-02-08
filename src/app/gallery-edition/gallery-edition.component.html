@@ -6,7 +6,13 @@
 
     <div class = "imageContainer" >
     
-        <img *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
+        <img (click) = "clickImage(image)"[matMenuTriggerFor]="menuRef" *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
             
     </div>
 </div>
+
+<mat-menu #menuRef="matMenu">
+    <button mat-menu-item (click) = "deleteImage()"> Usuń</button>
+    <button mat-menu-item (click) = "changeDesciption()"> Zmień opis</button>
+    
+  </mat-menu>
