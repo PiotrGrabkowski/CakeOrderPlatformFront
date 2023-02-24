@@ -1,0 +1,29 @@
+
+
+.container {
+
+    background-color: white;
+    border-radius: 0.5em;
+    margin: 1em;
+    padding: 2em;
+    opacity: 0.9;
+    height: 50%;
+    width: 100%;
+}
+.content{
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.confirm{
+background-color: #800000;
+color: white;
+
+}
+.cancel{
+background-color: #607d36;
+color: white;
+
+}

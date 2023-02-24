@@ -27,7 +27,7 @@ const routes: Routes = [
 {path : 'fileUpload', component : FileUploadComponent},
 {path : 'gallery', component : GalleryComponent},
 {path : 'confirmRegistration/:token', component: RegisterConfirmationComponent},
-{path : 'confirmation/:url/:msg', component : ConfirmationComponent}
+{path : 'confirmation', component : ConfirmationComponent}
 ];
 
 @NgModule({

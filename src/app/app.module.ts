@@ -36,6 +36,7 @@ import { ErrorInterceptorService } from './error-interceptor.service';
 import { RegisterService } from './register.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     FileUploadComponent,
     GalleryComponent,
     SpinnerComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

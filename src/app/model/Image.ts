@@ -1,7 +1,7 @@
 export class Image {
 id : number;
 url : string;
-publicId : string;
+outerServiceId : string;
 description : string;
 
 

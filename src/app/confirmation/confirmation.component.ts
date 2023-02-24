@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 
 @Component({
   selector: 'app-confirmation',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
 
+
+  @Output()
+  confirmation : EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  cancelation : EventEmitter<any> = new EventEmitter<any>();
+
+  @Input()
+  msg : string;
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  public confirm(){
+
+    this.confirmation.emit();
+
+  }
+  public cancel(){
+    this.cancelation.emit();
+
   }
 
 }

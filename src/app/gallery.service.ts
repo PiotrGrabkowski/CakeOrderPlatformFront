@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Config } from './config/config';
+import { ImageControllerApi } from './config/ImageControllerApi';
 import { Image } from './model/Image';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class GalleryService {
 
   constructor(private httpClient : HttpClient) { }
 
-  uploadFile(file: File,  description : string): Observable<HttpResponse<Object>>{
+  public uploadFile(file: File,  description : string): Observable<HttpResponse<Object>>{
 
     const formData : FormData = new FormData();
     formData.append('image', file);
@@ -21,9 +22,16 @@ export class GalleryService {
    return this.httpClient.post(this.url, formData, {observe : "response", responseType :"text"});
   }
 
-  getWholeGallery() : Observable<Array<Image>>{
+  public getWholeGallery() : Observable<Array<Image>>{
 
     return this.httpClient.get<Array<Image>>(this.url + '/images', {observe : 'body', responseType : 'json'});
+
+  }
+
+  public deleteImageById(id) : Observable<HttpResponse<Object>>{
+
+    const url = Config.SERVERBASEURL + ImageControllerApi.deleteById + id;
+    return this.httpClient.delete(url, {observe : "response", responseType :"text"});
 
   }
 

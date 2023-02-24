@@ -1,12 +1,14 @@
 
 
- 
- <div class="container">
-    <button mat-raised-button (click)="addToGallery()"><mat-icon>add</mat-icon>Dodaj zdjęcie do galerii</button>
 
+ <div class="container">
+    <app-confirmation *ngIf = "confVisible" [msg] = "msg" (confirmation) = "confirm($event)" (cancelation) = "cancel($event)"></app-confirmation>
+    
+    <button class = "button" mat-raised-button (click)="addToGallery()"><mat-icon>add</mat-icon>Dodaj zdjęcie do galerii</button>
+    
     <div class = "imageContainer" >
     
-        <img (click) = "clickImage(image)"[matMenuTriggerFor]="menuRef" *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
+        <img (click) = "clickImage(image)" [matMenuTriggerFor]="menuRef" *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
             
     </div>
 </div>

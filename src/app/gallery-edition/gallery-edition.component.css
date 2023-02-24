@@ -2,7 +2,11 @@ body, html {
     height: 100%;
     
     }
- 
+.button{
+
+    position: relative;
+    max-width: 300px;
+}
 .container{
     padding-top: 2em;
 background-image: url('../../assets/images/sag3.jpg');
@@ -11,6 +15,10 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 height: 100%;
+
+display: grid;
+grid-template-columns: 1fr;
+row-gap: 1em;
 
 
 
