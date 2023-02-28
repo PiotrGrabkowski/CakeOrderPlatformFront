@@ -26,6 +26,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule } from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { GalleryEditionComponent } from './gallery-edition/gallery-edition.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { LightboxModule } from 'ngx-lightbox';
@@ -74,6 +75,7 @@ import { SettingsComponent } from './settings/settings.component';
     MatSidenavModule,
     MatMenuModule,
     MatIconModule,
+    MatSlideToggleModule,
     
     MatDatepickerModule,
     MatNativeDateModule,

@@ -15,7 +15,7 @@ export class ConfirmationComponent implements OnInit {
   @Output()
   cancelation : EventEmitter<any> = new EventEmitter<any>();
 
-  @Input()
+  @Input() 
   msg : string;
   constructor() { }
 

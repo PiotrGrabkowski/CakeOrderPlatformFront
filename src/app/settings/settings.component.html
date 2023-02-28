@@ -1,1 +1,54 @@
-<p>settings works!</p>
+
+<div class = "formContainer">
+
+    <mat-card id = "settings-mat-card" class = "mat-card">
+        <mat-card-header> 
+     
+        </mat-card-header>
+     
+        <mat-card-content>
+          
+
+    <form [formGroup] = "notificationFormGroup" (ngSubmit) = "notificationOnSubmit()">
+
+        <h2>Powiadomienia SMS</h2>
+
+        
+    
+
+        <mat-slide-toggle formControlName = "smsNotifications" >
+            Włącz powiadomienia SMS
+        </mat-slide-toggle>
+    
+        <button class = "buttons" mat-raised-button type = "submit" >Zapisz zmiany</button>
+
+  
+    
+    
+    </form>
+
+    <h2>Edycja listy smaków</h2>
+
+    <app-confirmation *ngIf = "confirmationScreenShown" (confirmation) = "confirmDeletion()" (cancelation) ="cancelDeletion()" [msg] = "msg"></app-confirmation>
+
+    <ng-container *ngFor = "let taste of listOfTastes">
+    <div class = "taste"  *ngIf = "!taste.toDelete">
+
+        {{taste.name}}
+        <div class = "deleteTaste" (click) = "deleteTaste(taste)">Usuń</div>
+    </div>
+    </ng-container>
+
+    <div class = "taste">
+        <mat-form-field><input matInput [(ngModel)] = "newTasteName" placeholder="Wpisz nazwę nowego smaku">
+        </mat-form-field>
+        <div class = "addTaste" (click) = "addTaste()">Dodaj</div>
+    </div>
+
+
+    
+</mat-card-content>
+  
+</mat-card>
+</div>
+

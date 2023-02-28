@@ -11,6 +11,7 @@ import { OrdersListComponent } from './orders-list/orders-list.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
 import { RegisterComponent } from './register/register.component';
 import { ResponseViewComponent } from './response-view/response-view.component';
+import { SettingsComponent } from './settings/settings.component';
 import { StartPageComponent } from './start-page/start-page.component';
 
 
@@ -27,7 +28,8 @@ const routes: Routes = [
 {path : 'fileUpload', component : FileUploadComponent},
 {path : 'gallery', component : GalleryComponent},
 {path : 'confirmRegistration/:token', component: RegisterConfirmationComponent},
-{path : 'confirmation', component : ConfirmationComponent}
+{path : 'confirmation', component : ConfirmationComponent},
+{path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({
