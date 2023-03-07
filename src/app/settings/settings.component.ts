@@ -1,6 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Taste } from '../model/Taste';
+import { TasteHttpService } from '../taste-http.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +20,7 @@ export class SettingsComponent implements OnInit {
 
   notificationFormGroup : FormGroup;
   
-  constructor() {
+  constructor(private tasteService : TasteHttpService, private router : Router) {
     this.notificationFormGroup = new FormGroup({
 
       smsNotifications : new FormControl(true)
@@ -30,7 +33,9 @@ export class SettingsComponent implements OnInit {
   }
 
   public populateListOfTastes(){
-    this.listOfTastes = this.createTestListOfTastes();
+
+    this.tasteService.getAll().subscribe(array => this.listOfTastes = array);
+   // this.listOfTastes = this.createTestListOfTastes();
 
   }
 
@@ -81,6 +86,18 @@ export class SettingsComponent implements OnInit {
     this.confirmationScreenShown = true;
     this.tasteToDelete = taste;
     
+  }
+
+  public saveChangesToTastes(){
+
+    this.tasteService.update(this.listOfTastes).subscribe(
+      (response : HttpResponse<Object>)=> {
+
+        this.router.navigate(['responseView/' + response.body.toString()]);
+      }
+
+
+    );
   }
 
   public notificationOnSubmit(){
