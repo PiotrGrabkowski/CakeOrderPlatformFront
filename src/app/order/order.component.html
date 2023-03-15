@@ -25,6 +25,24 @@
             <input matInput formControlName = "phoneNumber" placeholder="Numer telefonu">
             
         </mat-form-field>
+        <mat-form-field>
+            <mat-label>Typ produktu</mat-label>
+            <mat-select formControlName = typeOfProduct>
+                <mat-option *ngFor = "let type of typeOfProductList" [value] = "type">{{type}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Wybierz smaki</mat-label>
+            <mat-select formControlName = setOfTastes multiple>
+                <mat-option *ngFor = "let taste of arrayOfTastes" [value] = "taste">{{taste}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Ilość porcji</mat-label>
+            <mat-select formControlName = numberOfServings >
+                <mat-option *ngFor = "let number of numberOfServingsSet" [value] = "number">{{number}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <mat-form-field >
 
@@ -40,9 +58,15 @@
           
           </mat-form-field>
 
+        <mat-form-field >
+            <input matInput formControlName = "description" placeholder="Dodatkowe informacje">
+            
+        </mat-form-field>
+
           
-              <mat-label>Plik z przykladowym zdjeciem</mat-label>
-            <input type ="file" style = "display : none;" formControlName = "pictureExample" placeholder="Numer telefonu" #fileUpload>
+              <mat-label *ngIf = "!isFileInfoDisplayed">Plik z przykladowym zdjeciem</mat-label>
+              <mat-label *ngIf = "isFileInfoDisplayed">Wybrano plik: {{chosenFile.name}}</mat-label>
+            <input type ="file" style = "display : none;" (change) = "fileUploadChange($event)" #fileUpload>
 
             <button style ="margin-bottom: 5%;" mat-mini-fab class = "buttons" (click) = "fileUpload.click()"><mat-icon>attach_file</mat-icon></button>
         

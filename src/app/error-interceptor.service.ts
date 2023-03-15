@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import { LoginHttpService } from './login-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private loginHttpService : LoginHttpService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(
 
@@ -22,9 +23,16 @@ export class ErrorInterceptorService implements HttpInterceptor {
           }
           else{
 
+           
             let status = error.status;
-            let msg = error.message;
+            let msg = error.error;
+            
+            
             if(status ==401){
+
+              localStorage.removeItem('jwt');
+              this.loginHttpService.setIsUserLoggedIn(false);
+             
               this.router.navigate(['login', {errorMsg : msg}]);
 
 

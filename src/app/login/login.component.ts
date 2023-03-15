@@ -116,21 +116,22 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('jwt', jwt);
             this.router.navigate(['responseView/' + responseBody]);
             console.log(jwt + ' ' + role + ' ' + responseBody);
-          },
+          }
+        //   ,
 
-        (error : HttpErrorResponse) => 
-          {
-            let msg = error.error;
-            let status = error.status;
-            console.log ("status: " + status +", wiadomosc: " + msg);
+        // (error : HttpErrorResponse) => 
+        //   {
+        //     let msg = error.error;
+        //     let status = error.status;
+        //     console.log ("status: " + status +", wiadomosc: " + msg);
 
-            this.router.navigate(['login', {errorMsg : msg}]);
+        //     this.router.navigate(['login', {errorMsg : msg}]);
         
             
             
 
 
-          }
+        //   }
       );
       
   

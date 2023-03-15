@@ -24,6 +24,7 @@ import { ResponseViewComponent } from './response-view/response-view.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -38,6 +39,7 @@ import { RegisterService } from './register.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SettingsComponent } from './settings/settings.component';
+
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { SettingsComponent } from './settings/settings.component';
     MatMenuModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatSelectModule,
     
     MatDatepickerModule,
     MatNativeDateModule,
@@ -90,6 +93,11 @@ import { SettingsComponent } from './settings/settings.component';
     {provide : HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true},
+    {provide : HTTP_INTERCEPTORS,
+      useClass : ErrorInterceptorService,
+      multi : true
+
+    },
     
     GalleryService,
     LoginHttpService,

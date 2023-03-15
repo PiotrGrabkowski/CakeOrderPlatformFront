@@ -70,6 +70,7 @@ export class FileUploadComponent implements OnInit {
 
       if(typeof fileReader.result ==='string'){
       img.src = fileReader.result;
+      console.log(fileReader.result);
       }
       that.spinnerDisplayed = false;
 
