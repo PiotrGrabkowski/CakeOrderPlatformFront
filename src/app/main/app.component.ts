@@ -20,7 +20,7 @@ export class AppComponent {
 
   }
   ngOnInit(): void {
-    this.router.navigate(['start']);
+   // this.router.navigate(['start']);
     this.loginHttp.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
   }
 

@@ -29,7 +29,8 @@ const routes: Routes = [
 {path : 'gallery', component : GalleryComponent},
 {path : 'confirmRegistration/:token', component: RegisterConfirmationComponent},
 {path : 'confirmation', component : ConfirmationComponent},
-{path: 'settings', component: SettingsComponent}
+{path: 'settings', component: SettingsComponent},
+{path : '', component : StartPageComponent}
 ];
 
 @NgModule({
