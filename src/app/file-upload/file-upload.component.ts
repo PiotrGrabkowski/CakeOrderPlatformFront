@@ -19,6 +19,7 @@ export class FileUploadComponent implements OnInit {
   chosenFileSize: number;
   chosenFile : File;
   description : string = '';
+  msg = 'Ładowanie...';
 
 
   constructor( private router : Router, 

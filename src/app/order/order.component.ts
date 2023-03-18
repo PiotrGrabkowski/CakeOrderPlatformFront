@@ -17,7 +17,8 @@ export class OrderComponent implements OnInit {
 
   // TO DO: make request to the server idempotent, save users inputs in some service in case he changes
   // component while editing order, ask user to save changes when changes component,
-  // obtaining typeOfProductList and arrayOfTastes from server
+  // obtaining typeOfProductList and arrayOfTastes from server,
+  // form validation
 
   typeOfProductList = ['Tort', 'Babeczki'];
   arrayOfTastes = ['malinowy', 'czekoladowy','truskawkowy'];
@@ -26,6 +27,9 @@ export class OrderComponent implements OnInit {
   isFileInfoDisplayed : boolean = false;
   fileReader : FileReader = new FileReader();
   isUserLoggedIn : boolean;
+  isSpinnerDisplayed: boolean = false;
+  isSubmitButtonDisabled : boolean = false;
+  msg = "Wysyłanie..."
 
   formGroup: FormGroup;
   constructor(private displayer: DisplayingComponentsSmoothlyService, 
@@ -54,6 +58,8 @@ export class OrderComponent implements OnInit {
   }
   onSubmit(){
     
+    
+
     let orderRequest : OrderRequest = new OrderRequest();
     let eventDate: Date = this.formGroup.get("eventDate").value;
     let dateInString = eventDate.toISOString().split("T")[0];
@@ -88,6 +94,10 @@ export class OrderComponent implements OnInit {
       );
     }
     this.fileReader.readAsDataURL(this.chosenFile);
+
+
+    this.isSpinnerDisplayed = true;
+    this.isSubmitButtonDisabled = true;
 
     
 

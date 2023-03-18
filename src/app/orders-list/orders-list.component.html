@@ -8,20 +8,20 @@
 <table mat-table [dataSource] = "orders">
 
     <ng-container matColumnDef = "username">
-        <th mat-header-cell *matHeaderCellDef >Użytkownik</th>
-        <td mat-cell *matCellDef = "let order"> {{order.username}}</td>
+        <th mat-header-cell *matHeaderCellDef >Użytkownik</th> 
+        <td mat-cell *matCellDef = "let order"> {{order.user.username}}</td>
 
     </ng-container>
 
     <ng-container matColumnDef = "dateOfOrder">
         <th mat-header-cell *matHeaderCellDef >Data złożenia zamówienia</th>
-        <td mat-cell *matCellDef = "let order"> {{order.dateOfOrder}}</td>
+        <td mat-cell *matCellDef = "let order"> {{order.creationDate}}</td>
 
     </ng-container>
 
     <ng-container matColumnDef = "dateOfEvent">
         <th mat-header-cell *matHeaderCellDef >Data uroczystości</th>
-        <td mat-cell *matCellDef = "let order"> {{order.dateOfEvent}}</td>
+        <td mat-cell *matCellDef = "let order"> {{order.eventDate}}</td>
 
     </ng-container>
     <ng-container matColumnDef = "typeOfProduct">
@@ -31,15 +31,15 @@
     </ng-container>
     <ng-container matColumnDef = "status">
         <th mat-header-cell *matHeaderCellDef >Status zamówienia</th>
-        <td [class] = "checkStatus(order)" mat-cell *matCellDef = "let order"> {{order.status}}</td>
+        <td [class] = "checkStatus(order)" mat-cell *matCellDef = "let order"> {{order.orderStatus}}</td>
 
     </ng-container>
     <ng-container matColumnDef = "buttons">
         <th mat-header-cell *matHeaderCellDef >Zmiana statusu zamówienia</th>
         <td class = "button-container" mat-cell *matCellDef = "let order"> 
-            <button *ngIf = "order.status !== 'Zrealizowane'" style = "color: white; background-color: #607d36;" mat-raised-button>Zrealizowane</button>
-            <button *ngIf = "order.status !== 'W trakcie realizacji'" mat-raised-button style = "color: white; background-color: #857c7a;" >W trakcie realizacji</button>
-            <button *ngIf = "order.status !== 'Nowe'" mat-raised-button style = "color: white; background-color: #FFA500;">Nowe</button>
+            <button *ngIf = "order.orderStatus !== 'Zrealizowane'" style = "color: white; background-color: #607d36;" mat-raised-button>Zrealizowane</button>
+            <button *ngIf = "order.orderStatus !== 'W trakcie realizacji'" mat-raised-button style = "color: white; background-color: #857c7a;" >W trakcie realizacji</button>
+            <button *ngIf = "order.orderStatus !== 'Nowe'" mat-raised-button style = "color: white; background-color: #FFA500;">Nowe</button>
             <button style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
             
         </td>

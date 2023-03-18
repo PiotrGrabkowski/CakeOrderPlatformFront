@@ -13,10 +13,17 @@ export class ResponseViewComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
 
     this.activatedRoute.paramMap.subscribe((params : Params) => {
 
-      return this.info = params.get('response');
+      let msg =  params.get('response');
+      return this.info = decodeURIComponent(msg.replace(/\+/g, " "));
 
     });
   }

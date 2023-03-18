@@ -6,7 +6,7 @@
         <mat-card-content class="divs-container">
             <div class="header-div"><h1>Dodawanie zdjęcia do galerii</h1></div>
             <div class="img-header-div header-divs"><span>Zdjęcie:</span></div>
-            <div class ="img-div"><app-spinner *ngIf="spinnerDisplayed"></app-spinner></div>
+            <div class ="img-div"><app-spinner [msg] = "msg" *ngIf="spinnerDisplayed"></app-spinner></div>
             <div class="description-header-div header-divs"><span>Opis zdjęcia:</span></div>
             <div class="description-div">
                 <mat-form-field>

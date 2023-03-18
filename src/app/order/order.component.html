@@ -16,6 +16,7 @@
     <form [formGroup] = "formGroup" (ngSubmit) = "onSubmit()">
 
         <h2>Edycja zamowienia</h2>
+        <app-spinner [msg] = "msg" *ngIf = "isSpinnerDisplayed"></app-spinner>
 
         
           
@@ -78,7 +79,7 @@
      
         
     
-        <button class = "buttons" mat-raised-button type = "submit" >Zloz zamowienie</button>
+        <button class = "buttons" mat-raised-button type = "submit" [disabled] = "isSubmitButtonDisabled">Zloz zamowienie</button>
 
        
     

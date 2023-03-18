@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from './config/config';
 import { LoginHttpService } from './login-http.service';
+import { Order } from './model/Order';
 import { OrderRequest } from './model/OrderRequest';
 
 @Injectable({
@@ -11,8 +12,9 @@ import { OrderRequest } from './model/OrderRequest';
 })
 export class OrderHttpService {
 
-  publicCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order';
-  authorizedCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order/authorized';
+  private getAllOrdersUrl : string = Config.SERVERBASEURL + '/orders/all';
+  private publicCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order';
+  private authorizedCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order/authorized';
 
   constructor(private httpClient : HttpClient, private loginHttpService : LoginHttpService) { }
 
@@ -34,6 +36,12 @@ private makeCreateOrderRequest(orderRequest : OrderRequest,  url : string): Obse
  
   return this.httpClient.post(url,orderRequest, {observe : 'response', responseType : 'text'});
 
+
+}
+
+public getAllOrders() : Observable<Array<Order>>{
+
+  return this.httpClient.get<Array<Order>> (this.getAllOrdersUrl, {observe : 'body', responseType : 'json'});
 
 }
 
