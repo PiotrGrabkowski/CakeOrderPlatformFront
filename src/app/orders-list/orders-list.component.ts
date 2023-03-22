@@ -19,13 +19,7 @@ export class OrdersListComponent implements OnInit {
 
     this.orderHttpService.getAllOrders().subscribe(list => this.orders = list);
 
-    //todo: fetch data from a server
-   // this.orders = [
-     // {id :1, username : 'Paweł', dateOfOrder: '2021-07-03', dateOfEvent: '2021-07-25', typeOfProduct: 'tort', status : 'Nowe'},
-     // {id :2, username : 'Piotr', dateOfOrder: '2021-07-03', dateOfEvent: '2021-07-25', typeOfProduct: 'bezy', status : 'Zrealizowane'},
-     // {id :3, username : 'Kazimiera', dateOfOrder: '2021-07-03', dateOfEvent: '2021-07-25', typeOfProduct: 'tort', status : 'W trakcie realizacji'}
 
-   // ];
 
     this.displayer.dipslayFromBottom("order-list-mat-card");
   }
