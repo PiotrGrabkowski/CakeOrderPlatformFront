@@ -14,23 +14,49 @@ export class AppComponent {
   userRole : string;
   sidenavOpened = false;
 
+  navigationClass = 'nav-off';
+  curtainClass = 'curtain-off';
+
 
   constructor(private router: Router, private loginHttp : LoginHttpService){
 
 
   }
   ngOnInit(): void {
-   // this.router.navigate(['start']);
+   
     this.loginHttp.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
+
   }
 
  
 
-    
-public changeSidenavState(){
+public toggleNavigation(){
+  if(this.navigationClass === 'nav-on'){
 
-  this.sidenavOpened = !this.sidenavOpened;
+    this.closeNavigation();
+  }
+  else{
+    this.navigationClass = 'nav-on';
+    this.curtainClass = 'curtain-on';
+  }
+
+ 
+
 }
+public closeNavigation(){
+  this.navigationClass = 'nav-off';
+  this.curtainClass = 'curtain-off';
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior : 'smooth'
+
+
+});
+
+
+}
+
 
 public onNavigateClick(rout : string){
 

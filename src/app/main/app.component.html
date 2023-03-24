@@ -1,17 +1,51 @@
+<main class="main">
+  <router-outlet></router-outlet>
 
+
+</main>
+<div [class]="curtainClass" (click)="closeNavigation()"></div>
+<div class="toolbar1">
+  <a class="menu-items" (click)="toggleNavigation()">Menu</a>
+  <a class="menu-items" *ngIf="!isUserLoggedIn" (click)="onNavigateClick('login')">Zaloguj</a>
+  <a class="menu-items" *ngIf="isUserLoggedIn" class="toolbarButtons" (click)="onLogoutButtonClick()">Wyloguj</a>
+</div>
+<div class="toolbar2">
+  <a class="menu-items" (click)="onNavigateClick('order')">Złóż zamówienie</a>
+  <a class="menu-items" (click)="onNavigateClick('start')">O nas</a>
+  <a class="menu-items" (click)="onNavigateClick('gallery')">Galeria</a>
+  <a class="menu-items" (click)="onNavigateClick('register')">Załóż konto</a>
+  <a class="menu-items">Kontakt</a>
+</div>
+
+
+<div [class]="navigationClass">
+  <a class="nav-item" [matMenuTriggerFor]="menuRef">Panel administratora</a>
+  <a class="nav-item">Moje konto</a>
+  <a class="nav-item" (click)="onNavigateClick('order')">Złóż zamówienie</a>
+  <a class="nav-item" (click)="onNavigateClick('start')">O nas</a>
+  <a class="nav-item" (click)="onNavigateClick('gallery')">Galeria</a>
+  <a class="nav-item" (click)="onNavigateClick('register')">Załóż konto</a>
+  <a class="nav-item">Kontakt</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--   
 <mat-toolbar class = "mattool1">
+    
   <div>
     <span class = "toolbarButtons"  (click) = "changeSidenavState()">Menu</span>
     </div>
     <div>
-   
-   
-  
     <span *ngIf ="!isUserLoggedIn" class = "toolbarButtons" (click) = "onNavigateClick('login')">Logowanie</span> 
     <span *ngIf ="isUserLoggedIn" class = "toolbarButtons" (click) = "onLogoutButtonClick()">Wyloguj</span> 
-
-    
-    
     </div>
     
 </mat-toolbar>
@@ -41,9 +75,11 @@
     
 </mat-sidenav-container>
 
+-->
+
 <mat-menu #menuRef="matMenu">
-  <button mat-menu-item (click) = "onNavigateClick('ordersList')"> Obsługa zamówień </button>
-  <button mat-menu-item > Zarządzanie użytkownikami</button>
-  <button mat-menu-item (click) = "onNavigateClick('galleryEdition')"> Edycaj galerii</button>
-  <button mat-menu-item (click) = "onNavigateClick('settings')"> Ustawienia</button>
+  <button mat-menu-item (click)="onNavigateClick('ordersList')"> Obsługa zamówień </button>
+  <button mat-menu-item> Zarządzanie użytkownikami</button>
+  <button mat-menu-item (click)="onNavigateClick('galleryEdition')"> Edycaj galerii</button>
+  <button mat-menu-item (click)="onNavigateClick('settings')"> Ustawienia</button>
 </mat-menu>

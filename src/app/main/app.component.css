@@ -1,3 +1,180 @@
+
+
+
+
+.toolbar1{
+    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 60px;
+    background-color:#e9897e;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    
+    
+
+}
+.toolbar2{
+
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: #857c7a;
+    color: white;
+    justify-content: space-evenly;
+    align-items: center;
+    display: flex;
+}
+.menu-items{
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-weight: 530;
+
+}
+.menu-items:hover{
+
+    cursor: pointer;
+}
+
+
+.nav-off{
+
+    --toolbarsHeight :120px;
+    position: fixed;
+    left: 0px;
+    top: var(--toolbarsHeight);
+    width: 200px;
+    height: 500px;
+
+    background-color:#f0afa8;
+    color: white;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: translateX(-200px);
+    transition: transform 0.5s;
+}
+.nav-on{
+    --toolbarsHeight :120px;
+    position: fixed;
+    left: 0px;
+    top: var(--toolbarsHeight);
+    width: 200px;
+    height: 500px;
+
+    background-color:#f0afa8;
+    color: white;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: translateX(0px);
+    transition: transform 0.5s;
+
+}
+.curtain-off{
+
+    width: 100vw;
+    min-height: 100vh;
+    background-color: black;
+    opacity: 0.0;
+    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+
+
+    
+    transition: opacity 0.5s;
+}
+.curtain-on{
+    width: 100vw;
+    min-height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    
+    transition: opacity 0.5s;
+
+}
+
+.nav-item{
+    border: none;
+    background: none;
+    padding: 18px;
+
+
+}
+.nav-item:hover{
+
+    cursor: pointer;
+}
+.main{
+
+    --toolbarsHeight :120px;
+    margin-top: var(--toolbarsHeight);
+    background-image: url('../../assets/images/sag3.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    
+    
+
+    min-height: 100vh;
+    position: relative;
+
+
+   
+    
+    
+
+}
+
+
+
+@media screen and (max-width :450px){
+    .toolbar2{
+
+        display: none;
+        
+        
+    }
+    .main{
+        --toolbarsHeight : 60px;
+    }
+    .nav-on{
+        --toolbarsHeight :60px;
+    }
+    .nav-off{
+        --toolbarsHeight :60px;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/*
 .mattool1{
   
     background-color:#e9897e; color: white;
@@ -42,3 +219,4 @@ mat-sidenav{
 
 
 }
+*/
