@@ -6,6 +6,7 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
 import { GalleryEditionComponent } from './gallery-edition/gallery-edition.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { LoginComponent } from './login/login.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderComponent } from './order/order.component';
 import { OrdersListComponent } from './orders-list/orders-list.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
 {path : 'order', component : OrderComponent },
 {path : 'forgottenPassword', component : ForgottenPasswordComponent},
 {path : 'ordersList', component : OrdersListComponent },
+{path : 'orderDetails/:id', component : OrderDetailsComponent},
 {path :'responseView/:response', component : ResponseViewComponent},
 {path: 'galleryEdition', component : GalleryEditionComponent},
 {path : 'fileUpload', component : FileUploadComponent},

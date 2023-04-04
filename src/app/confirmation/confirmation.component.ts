@@ -17,6 +17,9 @@ export class ConfirmationComponent implements OnInit {
 
   @Input() 
   msg : string;
+  @Input() 
+  buttonMsg : string;
+
   constructor() { }
 
   ngOnInit(): void {

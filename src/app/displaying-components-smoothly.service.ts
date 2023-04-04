@@ -17,6 +17,7 @@ export class DisplayingComponentsSmoothlyService {
 
     function showElement(){
       el.style.transform = "translateY(0)";
+      
     }
     setTimeout(showElement, 200);
 

@@ -1,0 +1,45 @@
+<div class="mat-card-container">
+<mat-card id = "my-mat-card" class = "my-mat-card">
+    <mat-card-header>
+        <mat-card-title><h1>Szczegóły zamówienia</h1></mat-card-title>
+    </mat-card-header>
+<mat-card-content>
+    <h3 class = "paragraph-header">Status zamówienia</h3>
+    <p [class] = "statusStyle">{{order.orderStatus}}</p>
+    <h3 class = "paragraph-header">Numer telefonu klienta</h3>
+    <p>{{order.phoneNumber}}</p>
+    <h3 class = "paragraph-header">Data uroczystości</h3>
+    <p>{{order.eventDate}}</p>
+    <h3 class = "paragraph-header">Typ produktu</h3>
+    <p>{{order.typeOfProduct}}</p>
+    <h3 class = "paragraph-header">Smaki</h3>
+    
+    <ul>
+        <li *ngFor = "let taste of order.setOfTastes">{{taste}}</li>
+    </ul>
+    <h3 class = "paragraph-header">Ilość porcji</h3>
+    <p>{{order.numberOfServings}}</p>
+    <h3 class = "paragraph-header">Dodatkowe informacje</h3>
+    <p>{{order.description}}</p>
+    <h3 class = "paragraph-header">Data złożenia zamówienia</h3>
+    <p>{{creationDate}}</p>
+    <h3 class = "paragraph-header">Zmiana statusu zamówienia</h3>
+    <div *ngIf = "confVisibleStat" class = "confContainer">
+        <app-confirmation  [buttonMsg] = "buttonMsgStat" [msg] = "msgStat" (confirmation) = "confirmStat($event)" (cancelation) = "cancelStat($event)"></app-confirmation>
+    </div>
+    <p id = "statusChangeResponseId">{{statusChangeResponse}}</p>
+    
+    <button *ngIf = "order.orderStatus !== 'COMPLETED'" (click) = "updateStat('COMPLETED')" style = "color: white; background-color: #607d36;" mat-raised-button>Zrealizowane</button>
+    <button *ngIf = "order.orderStatus !== 'PROCESSED'" (click) = "updateStat('PROCESSED')" mat-raised-button style = "color: white; background-color: #857c7a;" >W trakcie realizacji</button>
+    <button *ngIf = "order.orderStatus !== 'NEW'" (click) = "updateStat('NEW')" mat-raised-button style = "color: white; background-color: #FFA500;">Nowe</button>
+    <button mat-raised-button (click) = "methodToRemove()">ukryh odpowiedz http</button>
+    <h3 class = "paragraph-header">Usuwanie zamówienia</h3>
+    <div *ngIf = "confVisibleStat" class = "confContainer">
+        <app-confirmation *ngIf = "confVisibleDel" [buttonMsg] = "buttonMsgDel" [msg] = "msgDel" (confirmation) = "confirmDel($event)" (cancelation) = "cancelDel($event)"></app-confirmation>
+    </div>
+    <button style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
+    <h3 class = "paragraph-header">Przykładowe zdjęcie</h3>
+    <img [src] = order.image.url>
+</mat-card-content>
+</mat-card>
+</div>

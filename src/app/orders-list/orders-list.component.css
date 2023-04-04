@@ -1,7 +1,4 @@
-body, html {
-height: 100%;
 
-}
 
 table{
 
@@ -21,7 +18,7 @@ table{
     cursor: pointer;
 }
 .green{
-
+ 
     background-color: #a0c270;
     padding-left: 1em;
 
@@ -42,13 +39,8 @@ table{
     opacity: 0.9;
 }
 .mat-card-container{
-    padding-top: 2em;
-background-image: url('../../assets/images/sag3.jpg');
-background-attachment: fixed;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-height: 100%;
+position: relative;
+top : 10px;
 
 
 }

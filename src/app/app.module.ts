@@ -39,6 +39,7 @@ import { RegisterService } from './register.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SettingsComponent } from './settings/settings.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { SettingsComponent } from './settings/settings.component';
     GalleryComponent,
     SpinnerComponent,
     ConfirmationComponent,
-    SettingsComponent
+    SettingsComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

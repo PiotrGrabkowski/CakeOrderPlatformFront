@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DateParserService } from '../date-parser.service';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { Order } from '../model/Order';
 import { OrderHttpService } from '../order-http.service';
@@ -10,18 +12,51 @@ import { OrderHttpService } from '../order-http.service';
 })
 export class OrdersListComponent implements OnInit {
 
-  displayedColumns = ['username', 'dateOfOrder', 'dateOfEvent', 'typeOfProduct', 'status', 'details','buttons' ];
+  displayedColumns = [];
+  displayedColumnsMax = ['username', 'dateOfOrder', 'dateOfEvent', 'typeOfProduct', 'status', 'details' ];
+  displayedColumnsMin = ['dateOfOrder', 'status', 'details'];
   orders : Array<Order>;
 
-  constructor(private displayer: DisplayingComponentsSmoothlyService, private orderHttpService : OrderHttpService) { }
+  constructor(private displayer: DisplayingComponentsSmoothlyService,
+    private orderHttpService : OrderHttpService,
+    private dateParserService : DateParserService,
+    private router : Router) { }
 
   ngOnInit(): void {
+    this.setColumnsInRegardToScreenSize();
 
-    this.orderHttpService.getAllOrders().subscribe(list => this.orders = list);
+    this.orderHttpService.getAllOrders().subscribe(list => {
+      list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
+      this.orders = list
+    });
+    
 
-
+ 
 
     this.displayer.dipslayFromBottom("order-list-mat-card");
+  }
+
+  private setColumnsInRegardToScreenSize(){
+    let screenSize = screen.width;
+    if(screenSize <600){
+
+      this.displayedColumns = this.displayedColumnsMin;
+    }
+    else {
+
+      this.displayedColumns = this.displayedColumnsMax;
+    }
+
+  }
+  @HostListener('window:resize', ['$event'])
+  public handleScreenResize(){
+    this.setColumnsInRegardToScreenSize();
+
+  }
+  public navigateToDetails(id : string){
+
+    this.router.navigate(['orderDetails/' + id]);
+
   }
 
   public checkStatus (order: Order): string{

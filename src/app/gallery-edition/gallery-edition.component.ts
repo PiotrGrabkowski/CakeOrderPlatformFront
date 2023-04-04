@@ -39,6 +39,11 @@ export class GalleryEditionComponent implements OnInit {
 
     
     this.confVisible = true;
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     
 
 

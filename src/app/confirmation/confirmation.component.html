@@ -1,13 +1,16 @@
 
-    <div class = "container">
+    
        
         
-        <mat-card-content class = "content">
+        <div class = "content">
            <div>{{msg}}</div>
-            <div> <button class = "confirm" mat-raised-button (click) = "confirm()">Usuń</button>
-                <button class = "cancel" mat-raised-button (click) = "cancel()">Anuluj</button></div>
+            <div> 
+                <button class = "confirm" mat-raised-button (click) = "confirm()">{{buttonMsg}}</button>
+                <button class = "cancel" mat-raised-button (click) = "cancel()">Anuluj</button>
+            </div>
        
-        </mat-card-content>
+            
+        </div>
 
        
-    </div>
+   

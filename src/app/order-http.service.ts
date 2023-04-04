@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from './config/config';
@@ -13,8 +14,11 @@ import { OrderRequest } from './model/OrderRequest';
 export class OrderHttpService {
 
   private getAllOrdersUrl : string = Config.SERVERBASEURL + '/orders/all';
+  private getOrderByIdUrl : string = Config.SERVERBASEURL + '/orders/';
   private publicCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order';
   private authorizedCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order/authorized';
+  private updateOrderStatusUrl : string = Config.SERVERBASEURL + '/orders/order/status';
+  private deleteOrderUrl : string = Config.SERVERBASEURL + '/orders/';
 
   constructor(private httpClient : HttpClient, private loginHttpService : LoginHttpService) { }
 
@@ -43,6 +47,22 @@ public getAllOrders() : Observable<Array<Order>>{
 
   return this.httpClient.get<Array<Order>> (this.getAllOrdersUrl, {observe : 'body', responseType : 'json'});
 
+}
+
+public getOrderById(id : string): Observable<Order>{
+  return this.httpClient.get<Order> (this.getOrderByIdUrl + id, {observe : 'body', responseType : 'json'});
+
+
+}
+
+public changeOrderStatus(order : Order): Observable<HttpResponse<Object>>{
+  return this.httpClient.patch(this.updateOrderStatusUrl, order,  {observe : 'response', responseType : 'text'});
+
+}
+
+public deleteOrder(id: string): Observable<HttpResponse<Object>>{
+
+  return this.httpClient.delete(this.deleteOrderUrl + id, {observe : 'response', responseType : 'text'});
 }
 
 }
