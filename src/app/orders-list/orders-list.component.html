@@ -1,65 +1,137 @@
 <div class="mat-card-container">
-<mat-card id = "order-list-mat-card" class = "my-mat-card">
-    <mat-card-header>
-        <mat-card-title>Wszystkie zamówienia</mat-card-title>
-    </mat-card-header>
-<mat-card-content>
-     
-<table mat-table [dataSource] = "orders">
+    <mat-card id="order-list-mat-card" class="my-mat-card">
+        <mat-card-header>
+            <mat-card-title>Wszystkie zamówienia</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
 
-    <ng-container matColumnDef = "username">
-        <th mat-header-cell *matHeaderCellDef >Użytkownik</th> 
-        <td mat-cell *matCellDef = "let order"> {{order.user.username}}</td>
-
-    </ng-container>
-
-    <ng-container matColumnDef = "dateOfOrder">
-        <th mat-header-cell *matHeaderCellDef >Data złożenia zamówienia</th>
-        <td mat-cell *matCellDef = "let order"> {{order.creationDate}}</td>
-
-    </ng-container>
-
-    <ng-container matColumnDef = "dateOfEvent">
-        <th mat-header-cell *matHeaderCellDef >Data uroczystości</th>
-        <td mat-cell *matCellDef = "let order"> {{order.eventDate}}</td>
-
-    </ng-container>
-    <ng-container matColumnDef = "typeOfProduct">
-        <th mat-header-cell *matHeaderCellDef >Typ produktu</th>
-        <td mat-cell *matCellDef = "let order"> {{order.typeOfProduct}}</td>
-
-    </ng-container>
-    <ng-container matColumnDef = "status">
-        <th mat-header-cell *matHeaderCellDef >Status zamówienia</th>
-        <td [class] = "checkStatus(order)" mat-cell *matCellDef = "let order"> {{order.orderStatus}}</td>
-
-    </ng-container>
-    <ng-container matColumnDef = "buttons">
-        <th mat-header-cell *matHeaderCellDef >Zmiana statusu zamówienia</th>
-        <td class = "button-container" mat-cell *matCellDef = "let order"> 
-            <button *ngIf = "order.orderStatus !== 'Zrealizowane'" style = "color: white; background-color: #607d36;" mat-raised-button>Zrealizowane</button>
-            <button *ngIf = "order.orderStatus !== 'W trakcie realizacji'" mat-raised-button style = "color: white; background-color: #857c7a;" >W trakcie realizacji</button>
-            <button *ngIf = "order.orderStatus !== 'Nowe'" mat-raised-button style = "color: white; background-color: #FFA500;">Nowe</button>
-            <button style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
+            <div class = "filter">
             
-        </td>
+                <form [formGroup]="filterFormGroup" (ngSubmit)="filter()">
 
-    </ng-container>
-    <ng-container matColumnDef = "details">
-        <th mat-header-cell *matHeaderCellDef></th>
-    
-        <td mat-cell *matCellDef = "let order"><span (click) = "navigateToDetails(order.id)" class = "details">Szczegóły zamówienia</span></td>
-    </ng-container>
-
-    <tr class = "rows" mat-header-row *matHeaderRowDef= "displayedColumns"></tr>
-    <tr class = "rows" mat-row *matRowDef = "let order; columns : displayedColumns;"></tr>
+                    <h2>Filtrowanie zamówień</h2>
+                    <app-spinner [msg]="spinnerMsg" *ngIf="isSpinnerDisplayed"></app-spinner>
 
 
 
-</table>
-</mat-card-content>
+
+
+                    <mat-form-field *ngIf = "isViewDisplayedForAdmin">
+                        <mat-label>Nazwa użytkownika</mat-label>
+                        <input matInput formControlName="nickname" placeholder="Nazwa użytkownika">
+                    </mat-form-field>
+                    <mat-form-field *ngIf = "isViewDisplayedForAdmin">
+                        <mat-label>Adres e-mail użutkownika</mat-label>
+                        <input matInput formControlName="username" placeholder="Adres e-mail użutkownika">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput formControlName="fromEventDate" (click)="fromEventDatePicker.open()"
+                            [matDatepicker]="fromEventDatePicker" placeholder="Data uroczystosci od:">
+                        <mat-datepicker-toggle matSuffix [for]="fromEventDatePicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #fromEventDatePicker>
+                        </mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput formControlName="upToEventDate" (click)="upToEventDatePicker.open()"
+                            [matDatepicker]="upToEventDatePicker" placeholder="Data uroczystosci do:">
+                        <mat-datepicker-toggle matSuffix [for]="upToEventDatePicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #upToEventDatePicker>
+                        </mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput formControlName="fromCreationDate" (click)="fromCreationDatePicker.open()"
+                            [matDatepicker]="fromCreationDatePicker" placeholder="Data zamówienia od:">
+                        <mat-datepicker-toggle matSuffix [for]="fromCreationDatePicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #fromCreationDatePicker>
+                        </mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput formControlName="upToCreationDate" (click)="upToCreationDatePicker.open()"
+                            [matDatepicker]="upToCreationDatePicker" placeholder="Data zamówienia do:">
+                        <mat-datepicker-toggle matSuffix [for]="upToCreationDatePicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #upToCreationDatePicker>
+                        </mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Status zamówienia</mat-label>
+                        <mat-select formControlName=orderStatus>
+                            <mat-option *ngFor="let option of orderStatusOptions" [value]="option.status">{{option.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Fragment opisu zamówienia</mat-label>
+                        <input matInput formControlName="description" placeholder="Fragment opisu zamówienia">
+                    </mat-form-field>
+                    <mat-form-field *ngIf = "isViewDisplayedForAdmin">
+                        <mat-label>Numer telefonu klienta</mat-label>
+                        <input matInput formControlName="phoneNumber" placeholder="Numer telefonu klienta">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Typ produktu</mat-label>
+                        <input matInput formControlName="typeOfProduct" placeholder="Typ produktu">
+                    </mat-form-field>
+              
+                    <button class = "filterConfirm" mat-raised-button type ="submit" >Filtruj zamówienia</button>
+                    <button class = "filterCancel" mat-raised-button (click) = "cancelFilter()">Usuń filtry</button>
+
+             </form>
+
+            </div> 
 
 
 
-</mat-card>
+            <table mat-table [dataSource]="orders">
+     
+
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef>E-mail użytkownika</th>
+                    <td mat-cell *matCellDef="let order"> {{order.user.username}}</td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfOrder">
+                    <th mat-header-cell *matHeaderCellDef>Data złożenia zamówienia</th>
+                    <td mat-cell *matCellDef="let order"> {{order.creationDate}}</td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfEvent">
+                    <th mat-header-cell *matHeaderCellDef>Data uroczystości</th>
+                    <td mat-cell *matCellDef="let order"> {{order.eventDate}}</td>
+
+                </ng-container>
+                <ng-container matColumnDef="typeOfProduct">
+                    <th mat-header-cell *matHeaderCellDef>Typ produktu</th>
+                    <td mat-cell *matCellDef="let order"> {{order.typeOfProduct}}</td>
+
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status zamówienia</th>
+                    <td [class]="checkStatus(order)" mat-cell *matCellDef="let order"> {{order.orderStatus}}</td>
+
+                </ng-container>
+   
+                <ng-container matColumnDef="details">
+                    <th mat-header-cell *matHeaderCellDef></th>
+
+                    <td mat-cell *matCellDef="let order"><span (click)="navigateToDetails(order.id)"
+                            class="details">Szczegóły zamówienia</span></td>
+                </ng-container>
+
+                <tr class="rows" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr class="rows" mat-row *matRowDef="let order; columns : displayedColumns;"></tr>
+
+
+
+            </table>
+
+        </mat-card-content>
+
+
+
+    </mat-card>
 </div>

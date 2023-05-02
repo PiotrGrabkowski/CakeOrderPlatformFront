@@ -7,6 +7,8 @@
         </mat-card-header>
      
         <mat-card-content>
+
+            <app-spinner msg = "Zapisywanie ustawień..." *ngIf = "isSpinnerNotificationDisplayed"></app-spinner>
           
 
     <form [formGroup] = "notificationFormGroup" (ngSubmit) = "notificationOnSubmit()">
@@ -15,12 +17,18 @@
 
         
     
-
-        <mat-slide-toggle formControlName = "smsNotifications" >
-            Włącz powiadomienia SMS
-        </mat-slide-toggle>
+        
+            <mat-slide-toggle formControlName = "notificationEnabled" >
+                Włącz powiadomienia SMS
+            </mat-slide-toggle>
+        
+        <mat-form-field>
+            <input matInput formControlName= "number" placeholder="Numer do powiadomień">
+        </mat-form-field>
+      
+        
     
-        <button class = "buttons" mat-raised-button type = "submit" >Zapisz zmiany</button>
+        <button [disabled] = "isSubmitButtonNotificationDisabled" class = "buttons" mat-raised-button type = "submit" >Zapisz zmiany</button>
 
   
     
@@ -29,7 +37,7 @@
 
     <h2>Edycja listy smaków</h2>
 
-    <app-confirmation *ngIf = "confirmationScreenShown" (confirmation) = "confirmDeletion()" (cancelation) ="cancelDeletion()" [msg] = "msg"></app-confirmation>
+    <app-confirmation *ngIf = "confirmationScreenShown" (confirmation) = "confirmDeletion()" (cancelation) ="cancelDeletion()" buttonMsg = "Usuń" [msg] = "msg"></app-confirmation>
 
     <ng-container *ngFor = "let taste of listOfTastes">
     <div class = "taste"  *ngIf = "!taste.toDelete">
@@ -45,7 +53,7 @@
         <div class = "addTaste" (click) = "addTaste()">Dodaj</div>
     </div>
 
-    <button mat-raised-button (click) = "saveChangesToTastes()">Zapisz</button>
+    <button class = "buttons" mat-raised-button (click) = "saveChangesToTastes()">Zapisz</button>
 
 
     

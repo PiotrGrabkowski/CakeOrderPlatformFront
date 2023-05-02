@@ -2,7 +2,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SmsSettings } from '../model/SmsSettings';
 import { Taste } from '../model/Taste';
+import { SettingsService } from '../settings.service';
 import { TasteHttpService } from '../taste-http.service';
 
 @Component({
@@ -17,19 +19,37 @@ export class SettingsComponent implements OnInit {
   confirmationScreenShown : boolean = false;
   tasteToDelete : Taste;
   msg = 'Czy na pewno chcesz usunąć ten smak?';
+  smsSettingsFetched : SmsSettings;
+  smsSettingsUpdated : SmsSettings;
+
+  isSpinnerNotificationDisplayed = false;
+  isSubmitButtonNotificationDisabled = false;
 
   notificationFormGroup : FormGroup;
   
-  constructor(private tasteService : TasteHttpService, private router : Router) {
-    this.notificationFormGroup = new FormGroup({
-
-      smsNotifications : new FormControl(true)
-
-    })
+  constructor(private tasteService : TasteHttpService, private router : Router, private settingsService : SettingsService) {
+ 
    }
 
   ngOnInit(): void {
     this.populateListOfTastes();
+   
+    this.notificationFormGroup = new FormGroup({
+
+      notificationEnabled : new FormControl(),
+      number : new FormControl('')
+
+    });
+    this.settingsService.getSettings().subscribe(settings =>{
+   
+      this.notificationFormGroup.setValue({
+        notificationEnabled : settings.notificationEnabled,
+        number : settings.number
+
+      });
+
+    });
+ 
   }
 
   public populateListOfTastes(){
@@ -101,7 +121,19 @@ export class SettingsComponent implements OnInit {
   }
 
   public notificationOnSubmit(){
+    this.isSpinnerNotificationDisplayed = true;
+    this.isSubmitButtonNotificationDisabled = true;
+    let smsSettings : SmsSettings = Object.assign({}, this.notificationFormGroup.value);
 
+    this.settingsService.setSettings(smsSettings).subscribe(
+
+      response=>{
+        this.isSpinnerNotificationDisplayed = false;
+        this.isSubmitButtonNotificationDisabled = false;
+        this.router.navigate(['responseView/' + response]);
+      }
+    );
+    
 
   }
 

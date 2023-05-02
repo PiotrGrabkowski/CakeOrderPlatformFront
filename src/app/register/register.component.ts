@@ -14,6 +14,8 @@ import { RegisterService } from '../register.service';
 export class RegisterComponent implements OnInit {
 
   formGroup: FormGroup;
+  isPasswordHidden = true;
+  type :string = 'password';
   constructor(private router: Router, 
     private registerService: RegisterService,
     private displayer: DisplayingComponentsSmoothlyService) {
@@ -90,6 +92,21 @@ export class RegisterComponent implements OnInit {
 
     this.router.navigate(['/login']);
   }
+
+  changeVisibility(){
+
+    if(this.type === 'password'){
+      this.type = 'text';
+      this.isPasswordHidden = false;
+    }
+    else if(this.type === 'text'){
+
+      this.type = 'password';
+      this.isPasswordHidden = true;
+    }
+
+   
+   }
 
 }
 

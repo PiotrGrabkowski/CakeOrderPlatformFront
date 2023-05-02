@@ -9,11 +9,13 @@ import { LoginComponent } from './login/login.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderComponent } from './order/order.component';
 import { OrdersListComponent } from './orders-list/orders-list.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
 import { RegisterComponent } from './register/register.component';
 import { ResponseViewComponent } from './response-view/response-view.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StartPageComponent } from './start-page/start-page.component';
+
 
 
 const routes: Routes = [
@@ -23,20 +25,26 @@ const routes: Routes = [
 {path : 'start', component : StartPageComponent },
 {path : 'order', component : OrderComponent },
 {path : 'forgottenPassword', component : ForgottenPasswordComponent},
-{path : 'ordersList', component : OrdersListComponent },
-{path : 'orderDetails/:id', component : OrderDetailsComponent},
+{path : 'ordersList/:user', component : OrdersListComponent },
+{path : 'orderDetails/:id/:user', component : OrderDetailsComponent},
 {path :'responseView/:response', component : ResponseViewComponent},
 {path: 'galleryEdition', component : GalleryEditionComponent},
 {path : 'fileUpload', component : FileUploadComponent},
 {path : 'gallery', component : GalleryComponent},
-{path : 'confirmRegistration/:token', component: RegisterConfirmationComponent},
+{path : 'confirm/:action/:token', component: RegisterConfirmationComponent},
 {path : 'confirmation', component : ConfirmationComponent},
 {path: 'settings', component: SettingsComponent},
+{path : 'passwordChange', component : PasswordChangeComponent},
+
+
+
+
 {path : '', component : StartPageComponent}
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash:true, enableTracing:true} )],
+  imports: [RouterModule.forRoot(routes )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

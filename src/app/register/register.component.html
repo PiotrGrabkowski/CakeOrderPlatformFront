@@ -14,7 +14,9 @@
 
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput type="password" formControlName="password" placeholder="Hasło">
+                    <input matInput [type] = "type"  formControlName="password" placeholder="Hasło">
+                    <mat-icon style = "cursor: pointer;" (click) = "changeVisibility()" *ngIf = "isPasswordHidden" matSuffix>visibility</mat-icon>
+                    <mat-icon style = "cursor: pointer;" (click) = "changeVisibility()" *ngIf = "!isPasswordHidden" matSuffix>visibility_off</mat-icon>
                     <mat-error *ngIf="checkIfFieldIsEmpty('password')">Wymagane hasło</mat-error>
 
                 </mat-form-field>

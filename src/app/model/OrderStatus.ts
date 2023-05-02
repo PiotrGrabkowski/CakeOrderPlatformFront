@@ -1,7 +1,22 @@
 export class OrderStatus{
+    options = [
+        {
+            name : "Nowe",
+            status :"NEW"
 
-    NEW : string = 'Nowe';
-    PROCESSED : string = 'W trakcie realizacji';
-    COMPLETED : string = 'Zrealizowane';
+        },
+        {
+            name : "W trakcie realizacji",
+            status :"PROCESSED"
+
+        },
+        {
+            name : "Zrealizowane",
+            status :"COMPLETED"
+
+        },
+
+    ];
+ 
     
 }

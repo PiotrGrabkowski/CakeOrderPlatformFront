@@ -4,8 +4,9 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Config } from './config/config';
-import { LoginHttpService } from './login-http.service';
+
 import { Order } from './model/Order';
+import { OrderFilterOptions } from './model/OrderFilterOptions';
 import { OrderRequest } from './model/OrderRequest';
 
 @Injectable({
@@ -14,13 +15,15 @@ import { OrderRequest } from './model/OrderRequest';
 export class OrderHttpService {
 
   private getAllOrdersUrl : string = Config.SERVERBASEURL + '/orders/all';
+  private getFilteredOrdersUrl : string = Config.SERVERBASEURL + '/orders/filtered';
   private getOrderByIdUrl : string = Config.SERVERBASEURL + '/orders/';
   private publicCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order';
   private authorizedCreateOrderUrl : string = Config.SERVERBASEURL + '/orders/order/authorized';
   private updateOrderStatusUrl : string = Config.SERVERBASEURL + '/orders/order/status';
   private deleteOrderUrl : string = Config.SERVERBASEURL + '/orders/';
+  private getOrdersByUserIdUrl : string = Config.SERVERBASEURL + '/orders/all/';
 
-  constructor(private httpClient : HttpClient, private loginHttpService : LoginHttpService) { }
+  constructor(private httpClient : HttpClient) { }
 
 public createOrder(orderRequest : OrderRequest, isUserLoggedIn : boolean): Observable<HttpResponse<Object>>{
  
@@ -46,6 +49,17 @@ private makeCreateOrderRequest(orderRequest : OrderRequest,  url : string): Obse
 public getAllOrders() : Observable<Array<Order>>{
 
   return this.httpClient.get<Array<Order>> (this.getAllOrdersUrl, {observe : 'body', responseType : 'json'});
+
+}
+public getFilteredOrders(orderFilterOptions : OrderFilterOptions): Observable<Array<Order>>{
+
+  return this.httpClient.post<Array<Order>> (this.getFilteredOrdersUrl, orderFilterOptions, {observe : 'body', responseType : 'json'});
+
+}
+
+public getOrdersByUserId(id : number): Observable<Array<Order>>{
+
+  return this.httpClient.get<Array<Order>> (this.getOrdersByUserIdUrl + id, {observe : 'body', responseType : 'json'});
 
 }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginHttpService } from '../login-http.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,13 @@ export class AppComponent {
   curtainClass = 'curtain-off';
 
 
-  constructor(private router: Router, private loginHttp : LoginHttpService){
+  constructor(private router: Router, private userService : UserService){
 
 
   }
   ngOnInit(): void {
    
-    this.loginHttp.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
+    this.userService.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
 
   }
 
@@ -68,7 +69,8 @@ public onNavigateClick(rout : string){
 
     let msg = 'Zostałeś poprawnie wylogowany z aplikacji'
     localStorage.removeItem('jwt');
-    this.loginHttp.setIsUserLoggedIn(false);
+    this.userService.setIsUserLoggedIn(false);
+    this.userService.setCurrentUser(null);
 
     this.router.navigate(['responseView/' + msg]);
   }

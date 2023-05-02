@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Config } from './config/config';
 import { LoginRequest } from './model/LoginRequest';
+import { User } from './model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class LoginHttpService {
 
   private isUserLoggedIn : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loginURL = Config.SERVERBASEURL + '/user/login';
+  private restorePasswordUrl = Config.SERVERBASEURL + '/user/passwordRestoration';
   private userRole : BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private httpClient : HttpClient ) { }
@@ -40,6 +42,14 @@ export class LoginHttpService {
   public setUserRole(userRole: string) {
 
     return this.userRole.next(userRole);
+  }
+
+ 
+ 
+  public restorePassword(user : User): Observable<Object>{
+
+    return this.httpClient.post(this.restorePasswordUrl, user, {observe : 'body', responseType : 'text'});
+    
   }
 
 

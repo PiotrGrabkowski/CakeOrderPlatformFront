@@ -40,6 +40,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
+
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     SpinnerComponent,
     ConfirmationComponent,
     SettingsComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    PasswordChangeComponent
   ],
   imports: [
     BrowserModule,

@@ -12,31 +12,33 @@
     <form [formGroup] = "formGroup" (ngSubmit) = "onSubmit()">
 
         <h2>Logowanie</h2>
+        <app-spinner [msg] = "msg" *ngIf = "isSpinnerDisplayed"></app-spinner>
 
         
             <mat-error class = "error" *ngIf="isErrorDisplayed">{{errorMsg}}</mat-error>
         
 
-        <mat-form-field>
+        <mat-form-field> 
             <input matInput formControlName = "username" placeholder="Email">
             <mat-error *ngIf = "checkIfUsernameIsAbsent()">Wymagany email</mat-error>
         </mat-form-field>
          <mat-form-field>
              <input [type] = "type" matInput formControlName = "password" placeholder="Hasło">
-             <mat-icon (click) = "changeVisibility()" *ngIf = "isPasswordHidden" matSuffix>visibility</mat-icon>
-             <mat-icon (click) = "changeVisibility()" *ngIf = "!isPasswordHidden" matSuffix>visibility_off</mat-icon>
+             <mat-icon style = "cursor: pointer;"(click) = "changeVisibility()" *ngIf = "isPasswordHidden" matSuffix>visibility</mat-icon>
+             <mat-icon style = "cursor: pointer;" (click) = "changeVisibility()" *ngIf = "!isPasswordHidden" matSuffix>visibility_off</mat-icon>
              <mat-error *ngIf = "checkIfPasswordIsAbsent()">Wymagane hasło</mat-error>
             
-    
+     
         </mat-form-field>
      
     
-     
+      
         
     
-        <button class = "buttons" mat-raised-button type = "submit" [disabled] = "isFormNotValid()">Zaloguj się</button>
+        <button class = "buttons" mat-raised-button type = "submit" [disabled] = "isSubmitButtonDisabled()">Zaloguj się</button>
 
         <span class = "additionalFunctionalities" (click) = "routToForgottenPassword()">Nie pamiętasz hasła?</span>
+
     
     
     </form>

@@ -25,6 +25,9 @@ export class OrderDetailsComponent implements OnInit {
   buttonMsgStat = 'Zmień';
   msgStat = 'Czy na pewno zmienić status zamówienia?';
   statusChangeResponse;
+
+  isViewDisplayedForAdmin : boolean = false;
+  
   
 
   
@@ -39,6 +42,10 @@ export class OrderDetailsComponent implements OnInit {
     this.displayer.dipslayFromBottom('my-mat-card');
     
     this.activatedRoute.paramMap.pipe(switchMap((params : Params)=> {
+      let user = params.get('user');
+      if(user === 'admin'){
+        this.isViewDisplayedForAdmin = true;
+      }
       return this.orderService.getOrderById(params.get('id'));
 
     })).subscribe(element => {this.order = element; 
@@ -66,9 +73,10 @@ export class OrderDetailsComponent implements OnInit {
       }
       function hideStatusChangeResponse(){
         paragraph.style.display = 'none';
+       
 
       }
-      setTimeout(hideStatusChangeResponse, 1000);
+      setTimeout(hideStatusChangeResponse, 3000);
      
       
     })
@@ -78,13 +86,7 @@ export class OrderDetailsComponent implements OnInit {
 
   }
 
-  public methodToRemove(){
-    let paragraph = document.getElementById('statusChangeResponseId');
-    
-    paragraph.style.display = 'none';
 
-
-  }
   public cancelStat(event){
     this.confVisibleStat = false;
     

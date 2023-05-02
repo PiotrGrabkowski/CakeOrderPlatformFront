@@ -7,6 +7,7 @@ import { LoginHttpService } from '../login-http.service';
 import { JsonMultipartFile } from '../model/JsonMultipartFile';
 import { OrderRequest } from '../model/OrderRequest';
 import { OrderHttpService } from '../order-http.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-order',
@@ -35,28 +36,31 @@ export class OrderComponent implements OnInit {
   constructor(private displayer: DisplayingComponentsSmoothlyService, 
               private orderHttpService : OrderHttpService,
               private router: Router,
-              private loginHttpService : LoginHttpService) { }
+              private loginHttpService : LoginHttpService,
+              private userService : UserService) { }
 
   ngOnInit(): void {
     this.createFormGroup();
     this.displayer.dipslayFromBottom("order-mat-card");
-    this.loginHttpService.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
+    this.userService.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
   }
 
-  createFormGroup (){
+  public createFormGroup (){
     this.formGroup = new FormGroup({
 
       phoneNumber : new FormControl('', Validators.required),
       eventDate : new FormControl(''),
       typeOfProduct : new FormControl(''),
       numberOfServings: new FormControl(''),
-      setOfTastes : new FormControl(''),
+      setOfTastes : new FormControl(new Array<string>()),
       description : new FormControl('')
       
     });
 
   }
-  onSubmit(){
+
+
+  public onSubmit(){
     
     
 
@@ -97,7 +101,7 @@ export class OrderComponent implements OnInit {
 
 
     this.isSpinnerDisplayed = true;
-    this.isSubmitButtonDisabled = true;
+    this.isSubmitButtonDisabled = true; 
 
     
 

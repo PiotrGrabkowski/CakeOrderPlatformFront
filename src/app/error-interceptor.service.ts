@@ -37,6 +37,14 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
 
             }
+            if(status ==500){
+
+              
+             
+              this.router.navigate(['responseView', 'Wystąpił problem tehcniczny. Prosimy spróbować ponownie, bądż skontaktować się z nami pod numerem telefonu podanym w zakładce kontakt.']);
+
+
+            }
          
 
 

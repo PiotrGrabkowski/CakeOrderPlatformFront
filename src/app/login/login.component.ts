@@ -2,9 +2,13 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ConfirmationService } from '../confirmation.service';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { LoginHttpService } from '../login-http.service';
 import { LoginRequest } from '../model/LoginRequest';
+import { LoginResponse } from '../model/LoginResponse';
+import { User } from '../model/User';
+import { UserService } from '../user.service';
 
 
 
@@ -26,13 +30,18 @@ export class LoginComponent implements OnInit {
     errorMsg : string;
     type = 'password';
     isPasswordHidden = true;
+    isButtonDisabled : boolean = false;
+    isSpinnerDisplayed : boolean = false;
+    msg = 'Logowanie...';
+    
 
 
 
     constructor(private router: Router, 
-      private loginHttp : LoginHttpService, 
       private activatedRoute : ActivatedRoute,
-      private displayer: DisplayingComponentsSmoothlyService) { 
+      private displayer: DisplayingComponentsSmoothlyService,
+      private confirmationService : ConfirmationService,
+      private userService : UserService) { 
       
     }
   
@@ -101,21 +110,29 @@ export class LoginComponent implements OnInit {
 
   
     public onSubmit(): void {
+      this.isSpinnerDisplayed = true;
+      this.isButtonDisabled = true;
       const loginRequest : LoginRequest = Object.assign({}, this.formGroup.value);
       let jwt : string;
-      let role : string;
-      let responseBody : string;
+      let user : User;
+      let msg : string;
+      
 
-      this.loginHttp.login(loginRequest).subscribe(
-        (response : HttpResponse<Object>) => 
+      this.userService.login(loginRequest).subscribe(
+        (response : HttpResponse<LoginResponse>) => 
           {
             jwt = response.headers.get('Authorization');
-            role = response.headers.get('Role');
-            responseBody = response.body.toString();
-            this.loginHttp.setIsUserLoggedIn(true);
+            user = response.body.user;
+            msg = response.body.msg;
+
+            this.userService.setIsUserLoggedIn(true);
+            this.userService.setCurrentUser(user);
             localStorage.setItem('jwt', jwt);
-            this.router.navigate(['responseView/' + responseBody]);
-            console.log(jwt + ' ' + role + ' ' + responseBody);
+
+            this.router.navigate(['responseView/' + msg]);
+            this.isSpinnerDisplayed = false;
+            this.isButtonDisabled = false;
+            
           }
         //   ,
 
@@ -143,10 +160,20 @@ export class LoginComponent implements OnInit {
       return !this.formGroup.valid;
     }
 
+    public isSubmitButtonDisabled(): boolean{
+
+      return this.isFormNotValid() || this.isButtonDisabled;
+    }
+
     public routToForgottenPassword(){
 
       this.router.navigate(['/forgottenPassword']);
     }
+
+
+  
+
+  
   
   
   }

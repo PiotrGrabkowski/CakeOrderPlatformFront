@@ -56,4 +56,20 @@ top : 10px;
     display: flex;
     justify-content: space-between;
 }
+.filter{
+
+    padding : 2em;
+    box-sizing: border-box;
+    background-color: #c2bebc;
+    margin : 2em;
+}
+.filterConfirm{
+    color: white; 
+    background-color: #857c7a;
+
+}
+.filterCancel{
+    color: white; 
+    background-color: #800000;
+}
 
