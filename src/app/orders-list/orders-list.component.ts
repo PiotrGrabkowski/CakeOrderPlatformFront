@@ -96,13 +96,34 @@ export class OrdersListComponent implements OnInit {
   public filter(){
     this.isSpinnerDisplayed = true;
     let orderFilterOptions : OrderFilterOptions = this.assignFormGroupToOrderFilterOptionsObject();
-    this.orderHttpService.getFilteredOrders(orderFilterOptions).subscribe(
-      list => {
-        this.orders = list;
-        this.isSpinnerDisplayed = false;
+    if(this.isViewDisplayedForAdmin){
+      this.orderHttpService.getFilteredOrders(orderFilterOptions).subscribe(
+        list => {
+          list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
+          this.orders = list;
+          this.isSpinnerDisplayed = false;
+  
+        }
+      );
 
-      }
-    );
+    }
+    else{
+      this.userService.getCurrentUser().subscribe(user=>{
+          this.orderHttpService.getFilteredOrdersByUserId(orderFilterOptions , user.id).subscribe(
+            list => {
+              list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
+              this.orders = list;
+              this.isSpinnerDisplayed = false;
+      
+            }
+
+          );
+
+      });
+
+
+    }
+ 
   
 
   }
@@ -164,7 +185,18 @@ export class OrdersListComponent implements OnInit {
       typeOfProduct : ''
 
     });
-    this.getAllOrders();
+    if(this.isViewDisplayedForAdmin){
+
+      this.getAllOrders();
+    }
+    else {
+
+      this.userService.getCurrentUser().subscribe(user =>{
+        this.getOrdersForParticularUser(user.id);
+
+      });
+    }
+    
 
   }
 

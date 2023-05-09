@@ -17,6 +17,7 @@ export class UserService {
   private loginURL = Config.SERVERBASEURL + '/user/login';
   private restorePasswordUrl = Config.SERVERBASEURL + '/user/passwordRestoration';
   private passwordChangeUrl : string = Config.SERVERBASEURL + '/user/passwordChange';
+  private checkIfExistsUrl : string = Config.SERVERBASEURL + '/user/presence/';
   private userRole : BehaviorSubject<string> = new BehaviorSubject<string>('');
   private currentUser : BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
@@ -60,6 +61,10 @@ export class UserService {
     return this.currentUser.next(user);
   }
 
+  public checkIfUserAlreadyExists(username : string): Observable<boolean>{
+
+    return this.httpClient.get<boolean>(this.checkIfExistsUrl + username,{observe : 'body'} );
+  }
 
   
   

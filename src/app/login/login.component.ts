@@ -63,13 +63,18 @@ export class LoginComponent implements OnInit {
    
   
     ngOnInit() {
+
+      
       this.createFormGroup();
       this.activatedRoute.paramMap.subscribe((params : Params) =>{
-
+        //let msg = params.get('errorMsg');
+       // let decodedMsg = decodeURIComponent(msg.replace(/\+/g, " "));
         this.errorMsg = params.get('errorMsg');
         if(this.errorMsg){
 
           this.isErrorDisplayed = true;
+          this.isSpinnerDisplayed = false;
+          this.isButtonDisabled = false;
 
         }
       });
@@ -127,6 +132,7 @@ export class LoginComponent implements OnInit {
 
             this.userService.setIsUserLoggedIn(true);
             this.userService.setCurrentUser(user);
+            
             localStorage.setItem('jwt', jwt);
 
             this.router.navigate(['responseView/' + msg]);
@@ -134,21 +140,25 @@ export class LoginComponent implements OnInit {
             this.isButtonDisabled = false;
             
           }
-        //   ,
+          ,
 
-        // (error : HttpErrorResponse) => 
-        //   {
+         (error : HttpErrorResponse) => 
+          {
+            this.isSpinnerDisplayed = false;
+            this.isButtonDisabled = false;
         //     let msg = error.error;
         //     let status = error.status;
         //     console.log ("status: " + status +", wiadomosc: " + msg);
 
         //     this.router.navigate(['login', {errorMsg : msg}]);
-        
-            
-            
 
+          }
+          ,
+          () =>{
+            this.isSpinnerDisplayed = false;
+            this.isButtonDisabled = false;
 
-        //   }
+          }
       );
       
   

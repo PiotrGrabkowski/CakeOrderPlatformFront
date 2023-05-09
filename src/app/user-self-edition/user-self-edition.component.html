@@ -1,0 +1,32 @@
+<div class="mat-card-container">
+    <mat-card id = "my-mat-card" class = "my-mat-card">
+        <mat-card-header>
+            <mat-card-title><h1>Edycja danych kontaktowych</h1></mat-card-title>
+        </mat-card-header>
+    <mat-card-content>
+        <h3 class = "paragraph-header">Imię/Nazwa użytkownika</h3>
+        <p *ngIf = "!nicknameActive" (click) = "makeNicknameActive()">{{newNickname}}</p>
+        <mat-form-field>
+            <input *ngIf = "nicknameActive" matInput [(ngModel)] = "newNickname">
+        </mat-form-field>
+        
+        <h3 class = "paragraph-header">Numer telefonu</h3>
+        <p *ngIf = "!phoneNumberActive"(click) = "makePhoneNumberActive()">{{newPhoneNumber}}</p>
+        <mat-form-field>
+            <input *ngIf = "phoneNumberActive" matInput [(ngModel)] = "newPhoneNumber">
+        </mat-form-field>
+        
+        
+        
+       
+        
+        
+        <button  (click) = "updateUserInfo()" mat-raised-button style = "color: white; background-color: #857c7a;" >Zapisz</button>
+        
+        
+   
+       
+       
+    </mat-card-content>
+    </mat-card>
+    </div>

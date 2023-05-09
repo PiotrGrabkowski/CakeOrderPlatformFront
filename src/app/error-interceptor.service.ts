@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import { LoginHttpService } from './login-http.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private router : Router, private loginHttpService : LoginHttpService) { }
+  constructor(private router : Router,  private userService : UserService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(
 
@@ -31,9 +31,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
             if(status ==401){
 
               localStorage.removeItem('jwt');
-              this.loginHttpService.setIsUserLoggedIn(false);
+              this.userService.setIsUserLoggedIn(false);
+              let decodedMsg = decodeURIComponent(msg.replace(/\+/g, " "));
+       
              
-              this.router.navigate(['login', {errorMsg : msg}]);
+              this.router.navigate(['login', {errorMsg : decodedMsg}]);
 
 
             }
@@ -41,10 +43,19 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
               
              
-              this.router.navigate(['responseView', 'Wystąpił problem tehcniczny. Prosimy spróbować ponownie, bądż skontaktować się z nami pod numerem telefonu podanym w zakładce kontakt.']);
+              this.router.navigate(['responseView', 'Wystąpił problem techniczny. Prosimy spróbować ponownie, bądż skontaktować się z nami pod numerem telefonu podanym w zakładce kontakt.']);
 
 
             }
+            if(status ==403){
+
+              
+              let decodedMsg = decodeURIComponent(msg.replace(/\+/g, " "));
+              this.router.navigate(['responseView', decodedMsg]);
+
+
+            }
+         
          
 
 

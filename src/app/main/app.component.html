@@ -19,8 +19,8 @@
 </div>
 
 <div [class]="navigationClass">
-  <a class="nav-item" [matMenuTriggerFor]="menuRefAdmin">Panel administratora</a>
-  <a class="nav-item" [matMenuTriggerFor]="menuRefUser">Moje konto</a>
+  <a class="nav-item" *ngIf = "isAdminLoggedIn" [matMenuTriggerFor]="menuRefAdmin">Panel administratora</a>
+  <a class="nav-item" *ngIf = "isUserLoggedIn" [matMenuTriggerFor]="menuRefUser">Moje konto</a>
   <a class="nav-item" (click)="onNavigateClick('order')">Złóż zamówienie</a>
   <a class="nav-item" (click)="onNavigateClick('start')">O nas</a>
   <a class="nav-item" (click)="onNavigateClick('gallery')">Galeria</a>
@@ -31,7 +31,7 @@
 <mat-menu #menuRefAdmin>
   <button mat-menu-item (click)="onNavigateClick('ordersList/admin')"> Obsługa zamówień </button>
   <button mat-menu-item> Zarządzanie użytkownikami</button>
-  <button mat-menu-item (click)="onNavigateClick('galleryEdition')"> Edycaj galerii</button>
+  <button mat-menu-item (click)="onNavigateClick('galleryEdition')"> Edycja galerii</button>
   <button mat-menu-item (click)="onNavigateClick('settings')"> Ustawienia</button>
 </mat-menu>
 

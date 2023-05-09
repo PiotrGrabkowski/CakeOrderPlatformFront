@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginHttpService } from '../login-http.service';
+import { Role } from '../model/Role';
 import { UserService } from '../user.service';
 
 @Component({
@@ -12,8 +13,10 @@ export class AppComponent {
   title = 'CakeOrderPlatform';
 
   isUserLoggedIn: boolean = false;
+  isAdminLoggedIn : boolean = false;
   userRole : string;
   sidenavOpened = false;
+  role : Role = new Role();
 
   navigationClass = 'nav-off';
   curtainClass = 'curtain-off';
@@ -24,8 +27,34 @@ export class AppComponent {
 
   }
   ngOnInit(): void {
-   
+   this.userService.getCurrentUser().subscribe(user => {
+    
+    if(user!==null){
+      if(user.role === this.role.ADMIN ){
+           this.isAdminLoggedIn = true;
+         }
+
+
+    }
+    else{
+      this.isAdminLoggedIn = false;
+
+    }
+
+   }
+  
+    );
     this.userService.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
+  //  this.userService.getCurrentUser().subscribe(user => 
+    //  console.log('Rola uzytkownika: ' + user.role));
+  //    if(user === null){
+    //    this.isAdminLoggedIn = false;
+     // }
+     // if(user.role === this.role.ADMIN ){
+     //   this.isAdminLoggedIn = true;
+     // }
+
+  //  });
 
   }
 

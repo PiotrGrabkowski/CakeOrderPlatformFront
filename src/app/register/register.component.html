@@ -11,6 +11,7 @@
                     <input matInput type="email" formControlName="username" placeholder="Email">
                     <mat-error *ngIf="checkIfFieldIsEmpty('username')">Wymagany email</mat-error>
                     <mat-error *ngIf="checkIfEmailIsInvalid()">Niepoprawny email</mat-error>
+                    <mat-error *ngIf="userAlreadyExists">Konto {{typedUsername}} już isntieje</mat-error>
 
                 </mat-form-field>
                 <mat-form-field>

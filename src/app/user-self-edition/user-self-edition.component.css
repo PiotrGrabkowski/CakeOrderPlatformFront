@@ -1,0 +1,31 @@
+.mat-card-container{
+    position: relative;
+    top : 10px;
+    
+    
+}
+.my-mat-card{
+
+    margin: 1em;
+    opacity: 0.9;
+}
+.paragraph-header{
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 40px;
+
+}
+p{
+
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+

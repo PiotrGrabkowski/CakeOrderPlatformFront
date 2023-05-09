@@ -41,6 +41,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.component';
 
 
 
@@ -62,7 +63,8 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
     ConfirmationComponent,
     SettingsComponent,
     OrderDetailsComponent,
-    PasswordChangeComponent
+    PasswordChangeComponent,
+    UserSelfEditionComponent
   ],
   imports: [
     BrowserModule,

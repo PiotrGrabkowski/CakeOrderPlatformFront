@@ -22,6 +22,7 @@ export class OrderHttpService {
   private updateOrderStatusUrl : string = Config.SERVERBASEURL + '/orders/order/status';
   private deleteOrderUrl : string = Config.SERVERBASEURL + '/orders/';
   private getOrdersByUserIdUrl : string = Config.SERVERBASEURL + '/orders/all/';
+  private getFilteredOrdersByUserIdUrl : string = Config.SERVERBASEURL + '/orders/filtered/user/';
 
   constructor(private httpClient : HttpClient) { }
 
@@ -54,6 +55,11 @@ public getAllOrders() : Observable<Array<Order>>{
 public getFilteredOrders(orderFilterOptions : OrderFilterOptions): Observable<Array<Order>>{
 
   return this.httpClient.post<Array<Order>> (this.getFilteredOrdersUrl, orderFilterOptions, {observe : 'body', responseType : 'json'});
+
+}
+public getFilteredOrdersByUserId(orderFilterOptions : OrderFilterOptions, id : number): Observable<Array<Order>>{
+
+  return this.httpClient.post<Array<Order>> (this.getFilteredOrdersByUserIdUrl + id, orderFilterOptions, {observe : 'body', responseType : 'json'});
 
 }
 

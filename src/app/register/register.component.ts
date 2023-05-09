@@ -2,9 +2,11 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { RegisterRequest } from '../model/RegisterRequest';
 import { RegisterService } from '../register.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
@@ -16,15 +18,30 @@ export class RegisterComponent implements OnInit {
   formGroup: FormGroup;
   isPasswordHidden = true;
   type :string = 'password';
+  userAlreadyExists : boolean = false;
+  typedUsername : string = '';
   constructor(private router: Router, 
     private registerService: RegisterService,
-    private displayer: DisplayingComponentsSmoothlyService) {
+    private displayer: DisplayingComponentsSmoothlyService,
+    private userService : UserService) {
 
   }
 
   ngOnInit(): void {
     this.createFormGroup();
     this.displayer.dipslayFromBottom("register-mat-card");
+    this.formGroup.get('username').valueChanges.pipe(debounceTime(800),map(e => this.formGroup.get('username').value),distinctUntilChanged()).subscribe(username=>{
+      this.userService.checkIfUserAlreadyExists(username).subscribe(flag => {
+        this.typedUsername = username;
+        this.userAlreadyExists = flag;
+        if(flag){
+          this.formGroup.get('username').setErrors({'incorrect': true});
+        }
+        
+        
+      });
+
+    });
 
   }
   createFormGroup() {

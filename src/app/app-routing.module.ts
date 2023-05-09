@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { ResponseViewComponent } from './response-view/response-view.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.component';
 
 
 
@@ -35,7 +36,7 @@ const routes: Routes = [
 {path : 'confirmation', component : ConfirmationComponent},
 {path: 'settings', component: SettingsComponent},
 {path : 'passwordChange', component : PasswordChangeComponent},
-
+{path : 'userSelfEdition', component : UserSelfEditionComponent},
 
 
 
