@@ -5,8 +5,8 @@
         <div class = "content">
            <div>{{msg}}</div>
             <div> 
-                <button class = "confirm" mat-raised-button (click) = "confirm()">{{buttonMsg}}</button>
-                <button class = "cancel" mat-raised-button (click) = "cancel()">Anuluj</button>
+                <button [disabled] = "buttonDisabled" class = "confirm" mat-raised-button (click) = "confirm()">{{buttonMsg}}</button>
+                <button [disabled] = "buttonDisabled" class = "cancel" mat-raised-button (click) = "cancel()">Anuluj</button>
             </div>
        
             

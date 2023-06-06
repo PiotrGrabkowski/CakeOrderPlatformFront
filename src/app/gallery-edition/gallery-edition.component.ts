@@ -16,6 +16,9 @@ export class GalleryEditionComponent implements OnInit {
   chosenImage : Image;
   confVisible : boolean = false;
   msg : string = 'Czy na pewno chcesz usunąć to zdjęcie?';
+  msg2 : string = 'Usuwanie zdjęcia...';
+  spinnerDisplayed = false;
+  buttonDisabled = false;
 
   constructor(private router: Router, private galleryService : GalleryService) { }
 
@@ -50,10 +53,18 @@ export class GalleryEditionComponent implements OnInit {
   }
 
   public confirm(event){
+    this.spinnerDisplayed = true;
+    this.buttonDisabled = true;
     
     this.galleryService.deleteImageById(this.chosenImage.id).subscribe(
 
-      (response : HttpResponse<string>)=>this.router.navigate(['responseView/' + response.body])
+      (response : HttpResponse<string>)=>{
+
+        this.router.navigate(['responseView/' + response.body])
+        this.spinnerDisplayed = false;
+      }
+        
+        
 
 
 

@@ -6,7 +6,8 @@
     
     <button class = "button" mat-raised-button (click)="addToGallery()"><mat-icon>add</mat-icon>Dodaj zdjęcie do galerii</button>
     <div *ngIf = "confVisible"  class = "confContainer">
-        <app-confirmation [msg] = "msg" buttonMsg = "Usuń" (confirmation) = "confirm($event)" (cancelation) = "cancel($event)"></app-confirmation>
+        <app-spinner [msg] = "msg2" *ngIf = "spinnerDisplayed"></app-spinner>
+        <app-confirmation [buttonDisabled] = "buttonDisabled" [msg] = "msg" buttonMsg = "Usuń" (confirmation) = "confirm($event)" (cancelation) = "cancel($event)"></app-confirmation>
     </div>
     
     <div class = "imageContainer" >

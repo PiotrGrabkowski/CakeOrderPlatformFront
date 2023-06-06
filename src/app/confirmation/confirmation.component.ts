@@ -9,6 +9,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
 
+  @Input()
+  buttonDisabled = false;
 
   @Output()
   confirmation : EventEmitter<any> = new EventEmitter<any>();

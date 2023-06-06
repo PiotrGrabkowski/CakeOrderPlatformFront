@@ -21,7 +21,11 @@ row-gap: 1em;
     margin: 1em;
     padding: 2em;
     opacity: 0.9;
-    height : 50px;
+    min-height : 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 
 }

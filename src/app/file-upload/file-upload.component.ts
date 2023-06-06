@@ -14,12 +14,14 @@ import { GalleryService } from '../gallery.service';
 export class FileUploadComponent implements OnInit {
 
   isChosenFileVisible: boolean = false;
-  spinnerDisplayed: boolean = false;
+  spinnerDisplayed1: boolean = false;
+  spinnerDisplayed2: boolean = false;
   chosenFileName: string;
   chosenFileSize: number;
   chosenFile : File;
   description : string = '';
-  msg = 'Ładowanie...';
+  msg1 = 'Ładowanie...';
+  msg2 = 'Dodawanie zdjęcia...';
 
 
   constructor( private router : Router, 
@@ -52,7 +54,7 @@ export class FileUploadComponent implements OnInit {
      });
      const nameSpan = document.createElement("span");
      const sizeSpan = document.createElement("span");
-     this.spinnerDisplayed=true;
+     this.spinnerDisplayed1=true;
 
      this.chosenFileName = file.name;
      this.chosenFileSize = file.size;
@@ -73,7 +75,7 @@ export class FileUploadComponent implements OnInit {
       img.src = fileReader.result;
       console.log(fileReader.result);
       }
-      that.spinnerDisplayed = false;
+      that.spinnerDisplayed1 = false;
 
       container.appendChild(img);
       container.appendChild(nameSpan);
@@ -94,13 +96,15 @@ export class FileUploadComponent implements OnInit {
 
 
   sendFile(){
+    this.spinnerDisplayed2 = true;
 
    this.galleryService.uploadFile(this.chosenFile, this.description)
     .subscribe((response : HttpResponse<Object>)=>{
 
       var responseBody = response.body.toString();
-      console.log(responseBody);
+      
       this.router.navigate(['responseView/' + responseBody]);
+      this.spinnerDisplayed2 = false;
     });
     
 

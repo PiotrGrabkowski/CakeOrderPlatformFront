@@ -4,22 +4,25 @@
             <mat-card-title><h1>Edycja danych kontaktowych</h1></mat-card-title>
         </mat-card-header>
     <mat-card-content>
+        <app-spinner [msg] = "msg" *ngIf = "spinnerDisplayed"></app-spinner>
         <h3 class = "paragraph-header">Imię/Nazwa użytkownika</h3>
-        <p *ngIf = "!nicknameActive" (click) = "makeNicknameActive()">{{newNickname}}</p>
-        <mat-form-field>
-            <input *ngIf = "nicknameActive" matInput [(ngModel)] = "newNickname">
-        </mat-form-field>
-        
+        <p *ngIf = "!nicknameActive" >{{newNickname}}</p>
+        <label  *ngIf = "nicknameActive" class = "inputContainer" > 
+            <input [(ngModel)] = "newNickname"  (focusout) = "nicknameFocusOut()" class = "nicknameInput" id = "nicknameInput">
+            <span class = "nicknameInputSpan" id = "nicknameInputScan">{{nicknamePlaceholder}}</span>
+        </label>
+        <button *ngIf = "!nicknameActive" (click) = "makeNicknameActive()" mat-raised-button style = "color: white; background-color: #857c7a;" >Edytuj</button>
+
+
         <h3 class = "paragraph-header">Numer telefonu</h3>
-        <p *ngIf = "!phoneNumberActive"(click) = "makePhoneNumberActive()">{{newPhoneNumber}}</p>
-        <mat-form-field>
-            <input *ngIf = "phoneNumberActive" matInput [(ngModel)] = "newPhoneNumber">
-        </mat-form-field>
-        
-        
-        
+        <p *ngIf = "!phoneNumberActive" >{{newPhoneNumber}}</p>
+        <label  *ngIf = "phoneNumberActive" class = "inputContainer" > 
+            <input [(ngModel)] = "newPhoneNumber" (focusout) = "phoneNumberFocusOut()" class = phoneNumberInput id = "phoneNumberInput">
+            <span class = "phoneNumberInputSpan" id = "phoneNumberInputScan">{{phoneNumberPlaceholder}}</span>
+        </label>
+        <button *ngIf = "!phoneNumberActive" (click) = "makePhoneNumberActive()" mat-raised-button style = "color: white; background-color: #857c7a;" >Edytuj</button>
        
-        
+             
         
         <button  (click) = "updateUserInfo()" mat-raised-button style = "color: white; background-color: #857c7a;" >Zapisz</button>
         

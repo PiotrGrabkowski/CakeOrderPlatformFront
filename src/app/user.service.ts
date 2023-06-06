@@ -18,6 +18,9 @@ export class UserService {
   private restorePasswordUrl = Config.SERVERBASEURL + '/user/passwordRestoration';
   private passwordChangeUrl : string = Config.SERVERBASEURL + '/user/passwordChange';
   private checkIfExistsUrl : string = Config.SERVERBASEURL + '/user/presence/';
+  private updateUserUrl : string = Config.SERVERBASEURL + '/user';
+
+
   private userRole : BehaviorSubject<string> = new BehaviorSubject<string>('');
   private currentUser : BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
@@ -77,5 +80,9 @@ export class UserService {
 
     return this.httpClient.post(this.restorePasswordUrl, user, {observe : 'body', responseType : 'text'});
     
+  }
+  public updateUser (user : User) : Observable<Object>{
+
+    return this.httpClient.patch(this.updateUserUrl ,user,{observe : 'body', responseType : 'text'});
   }
 }

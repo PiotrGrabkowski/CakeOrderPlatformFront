@@ -42,6 +42,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.component';
+import { I18nInterceptorService } from './i18n-interceptor.service';
 
 
 
@@ -102,6 +103,11 @@ import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.
       multi: true},
     {provide : HTTP_INTERCEPTORS,
       useClass : ErrorInterceptorService,
+      multi : true
+
+    },
+    {provide : HTTP_INTERCEPTORS,
+      useClass : I18nInterceptorService,
       multi : true
 
     },
