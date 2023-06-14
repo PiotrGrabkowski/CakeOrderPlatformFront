@@ -25,6 +25,7 @@ export class OrderComponent implements OnInit {
   arrayOfTastes = ['malinowy', 'czekoladowy','truskawkowy'];
   numberOfServingsSet = ['10-15','15-20','20-25'];
   chosenFile : File;
+  jsonMultipartFile : JsonMultipartFile;
   isFileInfoDisplayed : boolean = false;
   fileReader : FileReader = new FileReader();
   isUserLoggedIn : boolean;
@@ -97,7 +98,10 @@ export class OrderComponent implements OnInit {
         }
       );
     }
-    this.fileReader.readAsDataURL(this.chosenFile);
+    if(this.chosenFile !== null){
+      this.fileReader.readAsDataURL(this.chosenFile);
+    }
+    
 
 
     this.isSpinnerDisplayed = true;

@@ -9,13 +9,31 @@
         <app-spinner [msg] = "msg2" *ngIf = "spinnerDisplayed"></app-spinner>
         <app-confirmation [buttonDisabled] = "buttonDisabled" [msg] = "msg" buttonMsg = "Usuń" (confirmation) = "confirm($event)" (cancelation) = "cancel($event)"></app-confirmation>
     </div>
-    
-    <div class = "imageContainer" >
+    <div class = "image-navigation-container">
+        <div class ="navigatotion-container">
+            <div class = "navigation">
+                <a class = "a-nav" (click) = "previous()">{{previousPlaceholder}}</a>
+                <span class = "span-nav">{{currentPage}}</span>
+                <a class = "a-nav"(click) = "next()">{{nextPlaceholder}}</a>
+            </div>
+            
+      
+            
+        </div>
+        <div class = "imageContainer" >
+        
         
     
-        <img (click) = "clickImage(image)" [matMenuTriggerFor]="menuRef" *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
+            <img (click) = "clickImage(image)" [matMenuTriggerFor]="menuRef" *ngFor="let image of listOfImages" class = "img"[src]="image.url" [alt] = "image.description"/>
             
+                
+        </div>
+
     </div>
+ 
+    
+
+
 </div>
 
 <mat-menu #menuRef="matMenu">

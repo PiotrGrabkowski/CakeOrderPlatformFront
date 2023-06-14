@@ -20,11 +20,70 @@ export class GalleryEditionComponent implements OnInit {
   spinnerDisplayed = false;
   buttonDisabled = false;
 
+  currentPage : number = 1;
+  numberOfPages : number;
+  itemsPerPage : number = 2;
+
+  nextPlaceholder : string = '';
+  previousPlaceholder : string = '';
+
+
   constructor(private router: Router, private galleryService : GalleryService) { }
 
   ngOnInit(): void {
-    this.galleryService.getWholeGallery().subscribe(gallery => {
-      this.listOfImages = gallery;});
+    this.galleryService.getGalleryByPage(this.currentPage,this.itemsPerPage).subscribe(page => {
+      console.log(page);
+      this.listOfImages = page.listOfItems;
+      this.numberOfPages = page.numberOfPages;
+      this.setNavigationPlaceholders();
+
+    
+    });
+  }
+  setNavigationPlaceholders(){
+    if(this.currentPage < this.numberOfPages && this.numberOfPages >1){
+      this.nextPlaceholder = 'Następna strona';
+    }
+    else{
+      this.nextPlaceholder = '';
+    }
+    if(this.currentPage >1){
+      this.previousPlaceholder = 'Poprzednia strona';
+    }
+    else{
+      this.previousPlaceholder = '';
+    }
+
+
+  }
+  next(){
+    if(this.currentPage<this.numberOfPages){
+      this.currentPage = this.currentPage + 1;
+      this.galleryService.getGalleryByPage(this.currentPage,this.itemsPerPage).subscribe(page => {
+        this.listOfImages = page.listOfItems;
+        this.numberOfPages = page.numberOfPages;
+        this.setNavigationPlaceholders();
+      
+      });
+
+    }
+  
+
+  }
+  previous(){
+    if(this.currentPage>1){
+      this.currentPage = this.currentPage - 1;
+      this.galleryService.getGalleryByPage(this.currentPage,this.itemsPerPage).subscribe(page => {
+        this.listOfImages = page.listOfItems;
+        this.numberOfPages = page.numberOfPages;
+        this.setNavigationPlaceholders();
+      
+      });
+
+    }
+   
+
+
   }
   public addToGallery(){
 
@@ -34,7 +93,7 @@ export class GalleryEditionComponent implements OnInit {
 
   public clickImage(image: Image){
     this.chosenImage = image;
-    console.log (this.chosenImage);
+    
 
   }
 

@@ -1,9 +1,10 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Config } from './config/config';
 import { ImageControllerApi } from './config/ImageControllerApi';
 import { Image } from './model/Image';
+import { Page } from './model/Page';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Image } from './model/Image';
 export class GalleryService {
 
   private url : string = Config.SERVERBASEURL + '/image/gallery';
+  private getGalleryByPageUrl : string = Config.SERVERBASEURL + '/image/gallery/page';
 
   constructor(private httpClient : HttpClient) { }
 
@@ -25,6 +27,15 @@ export class GalleryService {
   public getWholeGallery() : Observable<Array<Image>>{
 
     return this.httpClient.get<Array<Image>>(this.url + '/images', {observe : 'body', responseType : 'json'});
+
+  }
+  public getGalleryByPage(page : number, itemsPerPage : number) : Observable<Page<Image>>{
+    let params : HttpParams = new HttpParams()
+                .set('page', new String(page).toString())
+                .set('itemsPerPage', new String(itemsPerPage).toString());
+   
+    return this.httpClient.get<Page<Image>>(this.getGalleryByPageUrl, {observe : 'body', responseType : 'json', params : params});
+
 
   }
 
