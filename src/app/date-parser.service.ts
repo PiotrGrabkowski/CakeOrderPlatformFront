@@ -15,5 +15,27 @@ export class DateParserService {
     return date +' '+time;
 
   }
+  public parseFromDateToLocalDateString(date : Date): string{
+    
+
+    // return date.toISOString().split("T")[0];
+    let year = date.getFullYear();
+    let month = (date.getMonth()+1) + '';
+    if(month.length <2){
+
+     month = '0' + month;
+    }
+    let day = date.getDate() + '';
+    if(day.length <2){
+
+     day = '0' + day;
+    }
+    
+
+    return year + '-' + month + '-' + day;
+     
+  
+   
+ }
 
 }

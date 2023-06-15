@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DateParserService } from '../date-parser.service';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { LoginHttpService } from '../login-http.service';
 import { JsonMultipartFile } from '../model/JsonMultipartFile';
@@ -37,8 +38,8 @@ export class OrderComponent implements OnInit {
   constructor(private displayer: DisplayingComponentsSmoothlyService, 
               private orderHttpService : OrderHttpService,
               private router: Router,
-              private loginHttpService : LoginHttpService,
-              private userService : UserService) { }
+              private userService : UserService,
+              private dateParserService: DateParserService) { }
 
   ngOnInit(): void {
     this.createFormGroup();
@@ -63,54 +64,30 @@ export class OrderComponent implements OnInit {
 
   public onSubmit(){
     
-    
+     
 
     let orderRequest : OrderRequest = new OrderRequest();
     let eventDate: Date = this.formGroup.get("eventDate").value;
-    let dateInString = eventDate.toISOString().split("T")[0];
+    let dateInString = this.dateParserService.parseFromDateToLocalDateString(eventDate);
     orderRequest.eventDate = dateInString;
     orderRequest.phoneNumber = this.formGroup.get('phoneNumber').value;
     orderRequest.typeOfProduct = this.formGroup.get('typeOfProduct').value;
     orderRequest.numberOfServings = this.formGroup.get('numberOfServings').value;
     orderRequest.listOfTastes = this.formGroup.get('setOfTastes').value;
     orderRequest.description = this.formGroup.get('description').value;
+    orderRequest.jsonMultipartFile = this.jsonMultipartFile;
 
     
-
-    
-    
-    this.fileReader.onload = () =>{
-      let content = (this.fileReader.result as string).replace("data:", "")
-      .replace(/^.+,/, "");
-      let jsonMultipartFile : JsonMultipartFile = new JsonMultipartFile();
-      jsonMultipartFile.name = this.chosenFile.name;
-      jsonMultipartFile.base64StringContent = content;
-      jsonMultipartFile.contentType = this.chosenFile.type;
-      jsonMultipartFile.size = this.chosenFile.size;
-      orderRequest.jsonMultipartFile = jsonMultipartFile;
-
-      console.log('orderRequest: ' + orderRequest);
-      this.orderHttpService.createOrder(orderRequest, this.isUserLoggedIn).subscribe(
-        (response : HttpResponse<Object>)=> {
-    
-          
-          this.router.navigate(['responseView/' + response.body.toString()]);
-        }
-      );
-    }
-    if(this.chosenFile !== null){
-      this.fileReader.readAsDataURL(this.chosenFile);
-    }
-    
-
+    this.orderHttpService.createOrder(orderRequest, this.isUserLoggedIn).subscribe(
+      (response : HttpResponse<Object>)=> {
+  
+        
+        this.router.navigate(['responseView/' + response.body.toString()]);
+      }
+    );
 
     this.isSpinnerDisplayed = true;
     this.isSubmitButtonDisabled = true; 
-
-    
-
-
-  
 
 }
   
@@ -122,6 +99,22 @@ export class OrderComponent implements OnInit {
 
     this.chosenFile = event.target.files[0];
     this.isFileInfoDisplayed = true;
+
+    this.fileReader.onload = () =>{
+      let content = (this.fileReader.result as string).replace("data:", "")
+      .replace(/^.+,/, "");
+      let jsonMultipartFile : JsonMultipartFile = new JsonMultipartFile();
+      jsonMultipartFile.name = this.chosenFile.name;
+      jsonMultipartFile.base64StringContent = content;
+      jsonMultipartFile.contentType = this.chosenFile.type;
+      jsonMultipartFile.size = this.chosenFile.size;
+      this.jsonMultipartFile = jsonMultipartFile;
+
+ 
+    }
+    if(this.chosenFile !== null){
+      this.fileReader.readAsDataURL(this.chosenFile);
+    }
 
   }
 

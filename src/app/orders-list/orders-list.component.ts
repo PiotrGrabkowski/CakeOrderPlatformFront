@@ -138,8 +138,14 @@ export class OrdersListComponent implements OnInit {
     if (this.filterFormGroup.get('upToEventDate').dirty){
       orderFilterOptions.upToEventDate = this.parseFromDateToLocalDateString(this.filterFormGroup.get('upToEventDate').value);
     }
-    orderFilterOptions.fromCreationDate = this.filterFormGroup.get('fromCreationDate').value;
-    orderFilterOptions.upToCreationDate = this.filterFormGroup.get('upToCreationDate').value;
+    if (this.filterFormGroup.get('fromCreationDate').dirty){
+      orderFilterOptions.fromCreationDate = this.parseFromDateToLocalDateString(this.filterFormGroup.get('fromCreationDate').value);
+    }
+    if (this.filterFormGroup.get('upToCreationDate').dirty){
+      orderFilterOptions.upToCreationDate = this.parseFromDateToLocalDateString(this.filterFormGroup.get('upToCreationDate').value);
+    }
+    
+    
     orderFilterOptions.orderStatus = this.filterFormGroup.get('orderStatus').value;
     orderFilterOptions.description = this.filterFormGroup.get('description').value;
     orderFilterOptions.phoneNumber = this.filterFormGroup.get('phoneNumber').value;
