@@ -7,7 +7,7 @@
 
             <div class = "filter">
             
-                <form [formGroup]="filterFormGroup" (ngSubmit)="filter()">
+                <form [formGroup]="filterFormGroup" (ngSubmit)="getFiilteredAndSortedOrders()">
 
                     <h2>Filtrowanie zamówień</h2>
                     <app-spinner [msg]="spinnerMsg" *ngIf="isSpinnerDisplayed"></app-spinner>
@@ -81,6 +81,39 @@
              </form>
 
             </div> 
+            <div class = filter>
+                <form [formGroup]="sortingFormGroup" (ngSubmit)="getFiilteredAndSortedOrders()">
+                    <h2>Sortowanie zamówień</h2>
+                    <mat-form-field>
+                        <mat-label>Sortuj według: </mat-label>
+                        <mat-select formControlName=sortingParameter>
+                            <mat-option *ngFor="let sortingParameter of sortingParameters" [value]="sortingParameter.databaseParameter">{{sortingParameter.displayedName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                  
+                        <mat-radio-group formControlName = sortingDirection aria-label = "Kierunek sortowania">
+                            <mat-radio-button value = "ASC">Rosnąco</mat-radio-button>
+                            <mat-radio-button value = "DESC">Malejąco</mat-radio-button>
+                        </mat-radio-group>
+                    
+                    
+                    <button class = "filterConfirm" mat-raised-button type = "submit">Sortuj zamówienia</button>
+                    <button class = "filterCancel" mat-raised-button (click) = "cancelSorting()">Przywróć domyślne</button>
+                
+                </form> 
+
+            </div>
+
+            <div class ="navigatotion-container">
+                <div class = "navigation">
+                    <a class = "a-nav" (click) = "previous()">{{previousPlaceholder}}</a>
+                    <span class = "span-nav">{{currentPage}}</span>
+                    <a class = "a-nav"(click) = "next()">{{nextPlaceholder}}</a>
+                </div>
+                
+          
+                
+            </div>
 
 
 

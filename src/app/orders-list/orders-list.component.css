@@ -1,5 +1,46 @@
 
 
+
+
+.navigatotion-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navigation{
+
+    height: 3em;
+    min-width: 40em;
+    background-color: #e9897e;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 3em 1fr;
+    justify-content: center;
+    align-items: center;
+}
+.a-nav{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+
+
+}
+.span-nav{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+
+
+}
+.a-nav:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
 table{
 
     width: 100%;

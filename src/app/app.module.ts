@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -87,6 +88,7 @@ import { I18nInterceptorService } from './i18n-interceptor.service';
     MatIconModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatRadioModule,
     
     MatDatepickerModule,
     MatNativeDateModule,

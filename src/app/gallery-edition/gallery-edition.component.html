@@ -8,7 +8,7 @@
     <div *ngIf = "confVisible"  class = "confContainer">
         <app-spinner [msg] = "msg2" *ngIf = "spinnerDisplayed"></app-spinner>
         <app-confirmation [buttonDisabled] = "buttonDisabled" [msg] = "msg" buttonMsg = "Usuń" (confirmation) = "confirm($event)" (cancelation) = "cancel($event)"></app-confirmation>
-    </div>
+    </div> 
     <div class = "image-navigation-container">
         <div class ="navigatotion-container">
             <div class = "navigation">

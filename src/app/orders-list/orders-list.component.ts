@@ -5,7 +5,12 @@ import { DateParserService } from '../date-parser.service';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { Order } from '../model/Order';
 import { OrderFilterOptions } from '../model/OrderFilterOptions';
+import { OrderFindRequestOptions } from '../model/OrderFindRequestOptions';
+import { OrderSortingParametersDto } from '../model/OrderSortingParametersDto';
 import { OrderStatus } from '../model/OrderStatus';
+import { Page } from '../model/Page';
+import { Sort } from '../model/Sort';
+import { User } from '../model/User';
 import { OrderHttpService } from '../order-http.service';
 import { UserService } from '../user.service';
 
@@ -16,11 +21,16 @@ import { UserService } from '../user.service';
 })
 export class OrdersListComponent implements OnInit {
 
+  user : string;
+
   displayedColumns = [];
   displayedColumnsMax = ['username', 'dateOfOrder', 'dateOfEvent', 'typeOfProduct', 'status', 'details' ];
   displayedColumnsMin = ['dateOfOrder', 'status', 'details'];
   orders : Array<Order>;
+  sortingParameters : Array<OrderSortingParametersDto>;
+
   filterFormGroup : FormGroup;
+  sortingFormGroup : FormGroup;
 
   isViewDisplayedForAdmin : boolean = false;
 
@@ -33,6 +43,14 @@ export class OrdersListComponent implements OnInit {
 
 }];
 
+currentPage : number = 1;
+numberOfPages : number = 0;
+itemsPerPage : number = 20;
+nextPlaceholder : string = '';
+previousPlaceholder : string = '';
+
+orderFindRequestOptions : OrderFindRequestOptions = new OrderFindRequestOptions();
+
   
 
   constructor(private displayer: DisplayingComponentsSmoothlyService,
@@ -44,35 +62,103 @@ export class OrdersListComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
-    
+    let sort : Sort = new Sort();
+    let orderFilterOptions : OrderFilterOptions = new OrderFilterOptions();
+    let page : Page<Order>  = new Page<Order>();
+    page.currentPage = this.currentPage;
+    page.itemsPerPage = this.itemsPerPage;
+    sort.parameter = "O_CREATION_DATE";
+    sort.sortingDirection = "DESC";
+    this.orderFindRequestOptions.orderFilterOptions = orderFilterOptions;
+    this.orderFindRequestOptions.page = page;
+    this.orderFindRequestOptions.sort = sort;
+
+    this.populateListOfOrders();
+    this.populateSortingParameters();
  
     this.displayer.dipslayFromBottom("order-list-mat-card");
     this.createFormGroup();
+    this.setNavigationPlaceholders();
 
-    /// to complete
-    this.activatedRoute.paramMap.subscribe((params : Params) => {
 
-      let user =  params.get('user');
-      if(user === 'admin'){
+    
+  }
 
-        this.isViewDisplayedForAdmin = true;
-        this.getAllOrders();
-      }
-      else{
+  private populateSortingParameters(){
+    this.orderHttpService.getOrderSortingParameters().subscribe(list=>{
+      this.sortingParameters = list;
+    });
+  }
 
-        this.userService.getCurrentUser().subscribe(user =>{
-          this.getOrdersForParticularUser(user.id);
+  private populateListOfOrders(){
+        /// to complete
+        this.activatedRoute.paramMap.subscribe((params : Params) => {
 
+          this.user =  params.get('user');
+          if(this.user === 'admin'){
+    
+            this.isViewDisplayedForAdmin = true;
+            this.getAllOrders(this.orderFindRequestOptions);
+          }
+          else{
+    
+            this.userService.getCurrentUser().subscribe(user =>{
+              this.getOrdersForParticularUser(this.orderFindRequestOptions, user.id);
+    
+            });
+            
+            
+    
+    
+          }
+          this.setColumnsInRegardToScreenSize();
+        
+    
         });
         
 
+  }
+  private setNavigationPlaceholders(){
+    if(this.currentPage < this.numberOfPages && this.numberOfPages >1){
+      this.nextPlaceholder = 'Następna strona';
+    }
+    else{
+      this.nextPlaceholder = '';
+    }
+    if(this.currentPage >1){
+      this.previousPlaceholder = 'Poprzednia strona';
+    }
+    else{
+      this.previousPlaceholder = '';
+    }
 
+
+  }
+  next(){
+    if(this.currentPage<this.numberOfPages){
+      this.orderFindRequestOptions.page.currentPage = this.orderFindRequestOptions.page.currentPage + 1;
+      this.currentPage = this.currentPage + 1;
+      this.populateListOfOrders();
+      this.setNavigationPlaceholders();
+      
       }
-      this.setColumnsInRegardToScreenSize();
-    
 
-    });
+  }
+  
+
+  
+  previous(){
+    if(this.currentPage>1){
+      this.orderFindRequestOptions.page.currentPage = this.orderFindRequestOptions.page.currentPage - 1;
+      this.currentPage = this.currentPage - 1;
+      this.populateListOfOrders();
+      this.setNavigationPlaceholders();
+     
+
+    }
+   
+
+
   }
 
   private createFormGroup (){
@@ -90,34 +176,37 @@ export class OrdersListComponent implements OnInit {
       typeOfProduct : new FormControl('')
       
     });
+    this.sortingFormGroup = new FormGroup({
+     
+
+      sortingParameter : new FormControl('O_CREATION_DATE'),
+      sortingDirection : new FormControl('DESC')
+    });
 
   }
+ 
+  public cancelSorting(){
+    this.sortingFormGroup.reset({
+      sortingParameter : 'O_CREATION_DATE',
+      sortingDirection : 'DESC'
 
-  public filter(){
-    this.isSpinnerDisplayed = true;
+    });
+    this.getFiilteredAndSortedOrders();
+  }
+
+  public getFiilteredAndSortedOrders(){
+    
     let orderFilterOptions : OrderFilterOptions = this.assignFormGroupToOrderFilterOptionsObject();
+    let sort : Sort = this.assignFormGroupToSortObject();
+    this.orderFindRequestOptions.orderFilterOptions = orderFilterOptions;
+    this.orderFindRequestOptions.sort = sort;
     if(this.isViewDisplayedForAdmin){
-      this.orderHttpService.getFilteredOrders(orderFilterOptions).subscribe(
-        list => {
-          list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
-          this.orders = list;
-          this.isSpinnerDisplayed = false;
-  
-        }
-      );
+      this.getAllOrders(this.orderFindRequestOptions);
 
     }
     else{
       this.userService.getCurrentUser().subscribe(user=>{
-          this.orderHttpService.getFilteredOrdersByUserId(orderFilterOptions , user.id).subscribe(
-            list => {
-              list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
-              this.orders = list;
-              this.isSpinnerDisplayed = false;
-      
-            }
-
-          );
+       this.getOrdersForParticularUser(this.orderFindRequestOptions, user.id);
 
       });
 
@@ -127,8 +216,15 @@ export class OrdersListComponent implements OnInit {
   
 
   }
+  private assignFormGroupToSortObject() : Sort{
+    
+    let sort : Sort = new Sort();
+    sort.parameter = this.sortingFormGroup.get('sortingParameter').value;
+    sort.sortingDirection = this.sortingFormGroup.get('sortingDirection').value;
+    return sort;
+  }
 
-  public assignFormGroupToOrderFilterOptionsObject() : OrderFilterOptions{
+  private assignFormGroupToOrderFilterOptionsObject() : OrderFilterOptions{
     let orderFilterOptions : OrderFilterOptions = new OrderFilterOptions();
     orderFilterOptions.nickname = this.filterFormGroup.get('nickname').value;
     orderFilterOptions.username = this.filterFormGroup.get('username').value;
@@ -191,35 +287,37 @@ export class OrdersListComponent implements OnInit {
       typeOfProduct : ''
 
     });
-    if(this.isViewDisplayedForAdmin){
-
-      this.getAllOrders();
-    }
-    else {
-
-      this.userService.getCurrentUser().subscribe(user =>{
-        this.getOrdersForParticularUser(user.id);
-
-      });
-    }
+    this.getFiilteredAndSortedOrders();
+   
     
 
   }
 
-  private getAllOrders(){
+  private getAllOrders(orderFindRequestOptions : OrderFindRequestOptions){
     this.isSpinnerDisplayed = true;
-    this.orderHttpService.getAllOrders().subscribe(list => {
+
+
+    this.orderHttpService.getFilteredOrders(orderFindRequestOptions).subscribe(page => {
+      this.numberOfPages = page.numberOfPages;
+      let list = page.listOfItems;
       list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
       this.orders = list;
+      this.setNavigationPlaceholders();
       this.isSpinnerDisplayed = false;
+      console.log('number of pages: ' + this.numberOfPages  + ', orderFindRequestOptions : ' + JSON.stringify(orderFindRequestOptions));
+      console.log('returned page: '+ JSON.stringify(page));
+      
     });
 
   }
-  private getOrdersForParticularUser(id : number){
+  private getOrdersForParticularUser(orderFindRequestOptions : OrderFindRequestOptions, id : number){
     this.isSpinnerDisplayed = true;
-    this.orderHttpService.getOrdersByUserId(id).subscribe(list => {
+    this.orderHttpService.getFilteredOrdersByUserId(orderFindRequestOptions, id).subscribe(page => {
+      this.numberOfPages = page.numberOfPages;
+      let list = page.listOfItems;
       list.forEach(e => e.creationDate = this.dateParserService.parseFromIsoLocalDateTime(e.creationDate));
       this.orders = list;
+      this.setNavigationPlaceholders();
       this.isSpinnerDisplayed = false;
     });
 

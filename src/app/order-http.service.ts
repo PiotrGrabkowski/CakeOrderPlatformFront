@@ -7,7 +7,10 @@ import { Config } from './config/config';
 
 import { Order } from './model/Order';
 import { OrderFilterOptions } from './model/OrderFilterOptions';
+import { OrderFindRequestOptions } from './model/OrderFindRequestOptions';
 import { OrderRequest } from './model/OrderRequest';
+import { OrderSortingParametersDto } from './model/OrderSortingParametersDto';
+import { Page } from './model/Page';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,7 @@ export class OrderHttpService {
   private deleteOrderUrl : string = Config.SERVERBASEURL + '/orders/';
   private getOrdersByUserIdUrl : string = Config.SERVERBASEURL + '/orders/all/';
   private getFilteredOrdersByUserIdUrl : string = Config.SERVERBASEURL + '/orders/filtered/user/';
+  private getOrderSortingParametersUrl : string = Config.SERVERBASEURL + '/orders/order_sorting_parameters';
 
   constructor(private httpClient : HttpClient) { }
 
@@ -52,14 +56,14 @@ public getAllOrders() : Observable<Array<Order>>{
   return this.httpClient.get<Array<Order>> (this.getAllOrdersUrl, {observe : 'body', responseType : 'json'});
 
 }
-public getFilteredOrders(orderFilterOptions : OrderFilterOptions): Observable<Array<Order>>{
+public getFilteredOrders(orderFindRequestOptions : OrderFindRequestOptions): Observable<Page<Order>>{
 
-  return this.httpClient.post<Array<Order>> (this.getFilteredOrdersUrl, orderFilterOptions, {observe : 'body', responseType : 'json'});
+  return this.httpClient.post<Page<Order>> (this.getFilteredOrdersUrl, orderFindRequestOptions, {observe : 'body', responseType : 'json'});
 
 }
-public getFilteredOrdersByUserId(orderFilterOptions : OrderFilterOptions, id : number): Observable<Array<Order>>{
+public getFilteredOrdersByUserId(orderFindRequestOptions : OrderFindRequestOptions, id : number): Observable<Page<Order>>{
 
-  return this.httpClient.post<Array<Order>> (this.getFilteredOrdersByUserIdUrl + id, orderFilterOptions, {observe : 'body', responseType : 'json'});
+  return this.httpClient.post<Page<Order>> (this.getFilteredOrdersByUserIdUrl + id, orderFindRequestOptions, {observe : 'body', responseType : 'json'});
 
 }
 
@@ -83,6 +87,12 @@ public changeOrderStatus(order : Order): Observable<HttpResponse<Object>>{
 public deleteOrder(id: string): Observable<HttpResponse<Object>>{
 
   return this.httpClient.delete(this.deleteOrderUrl + id, {observe : 'response', responseType : 'text'});
+}
+
+public getOrderSortingParameters(): Observable<Array<OrderSortingParametersDto>>{
+
+  return this.httpClient.get<Array<OrderSortingParametersDto>> (this.getOrderSortingParametersUrl, {observe : 'body', responseType : 'json'});
+
 }
 
 }
