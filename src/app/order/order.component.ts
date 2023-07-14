@@ -7,7 +7,9 @@ import { DisplayingComponentsSmoothlyService } from '../displaying-components-sm
 import { LoginHttpService } from '../login-http.service';
 import { JsonMultipartFile } from '../model/JsonMultipartFile';
 import { OrderRequest } from '../model/OrderRequest';
+import { Taste } from '../model/Taste';
 import { OrderHttpService } from '../order-http.service';
+import { TasteHttpService } from '../taste-http.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -23,8 +25,9 @@ export class OrderComponent implements OnInit {
   // form validation
 
   typeOfProductList = ['Tort', 'Babeczki'];
+  listOfTastes = new Array<Taste>();
   arrayOfTastes = ['malinowy', 'czekoladowy','truskawkowy'];
-  numberOfServingsSet = ['10-15','15-20','20-25'];
+  numberOfServingsSet = ['5-10','10-15','15-20','20-25'];
   chosenFile : File;
   jsonMultipartFile : JsonMultipartFile;
   isFileInfoDisplayed : boolean = false;
@@ -36,6 +39,7 @@ export class OrderComponent implements OnInit {
 
   formGroup: FormGroup;
   constructor(private displayer: DisplayingComponentsSmoothlyService, 
+              private tasteService : TasteHttpService,
               private orderHttpService : OrderHttpService,
               private router: Router,
               private userService : UserService,
@@ -45,6 +49,7 @@ export class OrderComponent implements OnInit {
     this.createFormGroup();
     this.displayer.dipslayFromBottom("order-mat-card");
     this.userService.getIsUserLoggedIn().subscribe(x => this.isUserLoggedIn = x);
+    this.populateListOfTastes();
   }
 
   public createFormGroup (){
@@ -59,6 +64,9 @@ export class OrderComponent implements OnInit {
       
     });
 
+  }
+  public populateListOfTastes(){
+    this.tasteService.getAll().subscribe(array => this.listOfTastes = array);
   }
 
 

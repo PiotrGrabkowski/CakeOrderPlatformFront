@@ -5,4 +5,5 @@ export class User {
     role : string;
     nickname : string;
     phoneNumber : string; 
+    userEnabled : string;
 }

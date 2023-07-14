@@ -30,7 +30,7 @@
 
 <mat-menu #menuRefAdmin>
   <button mat-menu-item (click)="onNavigateClick('ordersList/admin')"> Obsługa zamówień </button>
-  <button mat-menu-item> Zarządzanie użytkownikami</button>
+  <button mat-menu-item (click)="onNavigateClick('user_list')"> Zarządzanie użytkownikami</button>
   <button mat-menu-item (click)="onNavigateClick('galleryEdition')"> Edycja galerii</button>
   <button mat-menu-item (click)="onNavigateClick('settings')"> Ustawienia</button>
 </mat-menu>

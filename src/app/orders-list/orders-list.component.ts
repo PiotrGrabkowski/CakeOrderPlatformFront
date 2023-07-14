@@ -27,8 +27,8 @@ export class OrdersListComponent implements OnInit {
   displayedColumnsMax = ['username', 'dateOfOrder', 'dateOfEvent', 'typeOfProduct', 'status', 'details' ];
   displayedColumnsMin = ['dateOfOrder', 'status', 'details'];
   orders : Array<Order>;
-  sortingParameters : Array<OrderSortingParametersDto>;
 
+  sortingParameters : Array<OrderSortingParametersDto>;
   filterFormGroup : FormGroup;
   sortingFormGroup : FormGroup;
 
@@ -338,7 +338,6 @@ orderFindRequestOptions : OrderFindRequestOptions = new OrderFindRequestOptions(
         });
       }
     }
-
   }
   @HostListener('window:resize', ['$event'])
   public handleScreenResize(){

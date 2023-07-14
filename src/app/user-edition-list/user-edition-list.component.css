@@ -1,0 +1,107 @@
+.navigatotion-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navigation{
+
+    height: 3em;
+    min-width: 40em;
+    background-color: #e9897e;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 3em 1fr;
+    justify-content: center;
+    align-items: center;
+}
+.a-nav{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+
+
+}
+.span-nav{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+
+
+}
+.a-nav:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+table{
+
+    width: 100%;
+    
+
+}
+
+.details{
+
+    text-decoration-line: underline;
+    padding: 1em;
+
+}
+.details:hover{
+
+    cursor: pointer;
+}
+.green{
+ 
+    background-color: #a0c270;
+    padding-left: 1em;
+
+}
+.red{
+    background-color: #7c2020;
+    padding-left: 1em;
+
+}
+
+.my-mat-card{
+
+    margin: 1em;
+    opacity: 0.9;
+}
+.mat-card-container{
+position: relative;
+top : 10px;
+
+
+}
+
+.rows{
+
+   
+    
+}
+
+.button-container{
+
+    display: flex;
+    justify-content: space-between;
+}
+.filter{
+
+    padding : 2em;
+    box-sizing: border-box;
+    background-color: #c2bebc;
+    margin : 2em;
+}
+.filterConfirm{
+    color: white; 
+    background-color: #857c7a;
+
+}
+.filterCancel{
+    color: white; 
+    background-color: #800000;
+}

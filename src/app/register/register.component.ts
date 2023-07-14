@@ -15,6 +15,9 @@ import { UserService } from '../user.service';
 })
 export class RegisterComponent implements OnInit {
 
+  msg: string =  'Rejestracja...'; 
+  isSpinnerDisplayed : boolean = false;
+
   formGroup: FormGroup;
   isPasswordHidden = true;
   type :string = 'password';
@@ -75,28 +78,30 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.isSpinnerDisplayed = true;
     let msg: string;
     const registerRequest: RegisterRequest = Object.assign({}, this.formGroup.value);
     this.registerService.registerUser(registerRequest).subscribe(
       (response: HttpResponse<Object>) => {
         msg = response.body.toString();
         this.router.navigate(['responseView/' + msg]);
+        this.isSpinnerDisplayed = false;
       },
 
       (error: HttpErrorResponse) => {
 
         let msg = error.error;
         let status = error.status;
-        console.log("status: " + status + ", wiadomosc: " + msg);
 
         this.router.navigate(['login', { errorMsg: msg }]);
+        this.isSpinnerDisplayed = false;
       }
 
 
 
     );
 
-    console.log(registerRequest);
+    
 
 
   }

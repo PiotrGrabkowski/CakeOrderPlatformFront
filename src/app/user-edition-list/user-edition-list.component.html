@@ -1,0 +1,50 @@
+<div class="mat-card-container">
+    <mat-card id="user-list-mat-card" class="my-mat-card">
+        <mat-card-header>
+            <mat-card-title>Wszyscy użytkownicy</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class ="navigatotion-container">
+                <div class = "navigation">
+                    <a class = "a-nav" (click) = "previous()">{{previousPlaceholder}}</a>
+                    <span class = "span-nav">{{currentPage}}</span>
+                    <a class = "a-nav"(click) = "next()">{{nextPlaceholder}}</a>
+                </div> 
+            </div>
+
+            <table mat-table [dataSource]="users">
+     
+
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef>E-mail użytkownika</th>
+                    <td mat-cell *matCellDef="let user"> {{user.username}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="nickname">
+                    <th mat-header-cell *matHeaderCellDef>Nazwa użytkownika</th>
+                    <td mat-cell *matCellDef="let user"> {{user.nickname}}</td>
+                </ng-container>
+                <ng-container matColumnDef="phoneNumber">
+                    <th mat-header-cell *matHeaderCellDef>Numer telefonu</th>
+                    <td mat-cell *matCellDef="let user"> {{user.phoneNumber}}</td>
+                </ng-container>
+             
+                <ng-container matColumnDef="isUserEnabled">
+                    <th mat-header-cell *matHeaderCellDef>Status konta</th>
+                    <td [class]="checkStatusClass(user)" mat-cell *matCellDef="let user"> {{checkStatusInfo(user)}}</td>
+
+                </ng-container>
+                <ng-container matColumnDef="details">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let user"><span (click)="navigateToDetails(user.id)"
+                            class="details">Edycja użytkownika</span></td>
+                </ng-container>
+
+
+                <tr class="rows" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr class="rows" mat-row *matRowDef="let user; columns : displayedColumns;"></tr>
+            </table>
+
+        </mat-card-content>
+    </mat-card>
+</div>

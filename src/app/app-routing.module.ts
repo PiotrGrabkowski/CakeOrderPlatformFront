@@ -15,6 +15,8 @@ import { RegisterComponent } from './register/register.component';
 import { ResponseViewComponent } from './response-view/response-view.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { UserByadminEditionComponent } from './user-byadmin-edition/user-byadmin-edition.component';
+import { UserEditionListComponent } from './user-edition-list/user-edition-list.component';
 import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.component';
 
 
@@ -37,6 +39,8 @@ const routes: Routes = [
 {path: 'settings', component: SettingsComponent},
 {path : 'passwordChange', component : PasswordChangeComponent},
 {path : 'userSelfEdition', component : UserSelfEditionComponent},
+{path : 'user_list', component : UserEditionListComponent},
+{path : 'user_by_admin_edition/:id', component : UserByadminEditionComponent},
 
 
 

@@ -44,6 +44,8 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { UserSelfEditionComponent } from './user-self-edition/user-self-edition.component';
 import { I18nInterceptorService } from './i18n-interceptor.service';
+import { UserEditionListComponent } from './user-edition-list/user-edition-list.component';
+import { UserByadminEditionComponent } from './user-byadmin-edition/user-byadmin-edition.component';
 
 
 
@@ -66,7 +68,9 @@ import { I18nInterceptorService } from './i18n-interceptor.service';
     SettingsComponent,
     OrderDetailsComponent,
     PasswordChangeComponent,
-    UserSelfEditionComponent
+    UserSelfEditionComponent,
+    UserEditionListComponent,
+    UserByadminEditionComponent
   ],
   imports: [
     BrowserModule,

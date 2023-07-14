@@ -1,0 +1,40 @@
+<div class="mat-card-container">
+    <mat-card id = "my-mat-card" class = "my-mat-card">
+        <mat-card-header>
+            <mat-card-title><h1>Edycja użytkownika</h1></mat-card-title>
+        </mat-card-header>
+    <mat-card-content>
+        
+       
+        <h3  class = "paragraph-header">Adres email użytkownika</h3>
+        <p >{{user.username}}</p>
+        <h3  class = "paragraph-header">Nazwa użytkownika</h3>
+        <p >{{user.nickname}}</p>
+        <h3  class = "paragraph-header">Numer telefonu</h3>
+        <p >{{user.phoneNumber}}</p>
+        <h3  class = "paragraph-header">Rola</h3>
+        <p >{{user.role}}</p>
+        <h3 class = "paragraph-header">Status konta</h3>
+        <p [class]="checkStatusClass()" > {{checkStatusInfo()}}</p>
+        <app-spinner [msg] = "msg" *ngIf = "isSpinnerDisplayed"></app-spinner>
+        
+        <div *ngIf = "activateConfirmConfig.visible" class = "confContainer">
+            <app-confirmation  [buttonMsg] = "activateConfirmConfig.buttonMsg" [msg] = "activateConfirmConfig.msg" (confirmation) = "confirmActivation($event)" (cancelation) = "cancelActivation($event)"></app-confirmation>
+        </div>
+        <div *ngIf = "blockConfirmConfig.visible" class = "confContainer">
+            <app-confirmation  [buttonMsg] = "blockConfirmConfig.buttonMsg" [msg] = "blockConfirmConfig.msg" (confirmation) = "confirmBlockage($event)" (cancelation) = "cancelBlockage($event)"></app-confirmation>
+        </div>
+      
+        <button *ngIf = "!checkIfUserIsEnabled()" (click) = "activateAccount()" style = "color: white; background-color: #607d36;" mat-raised-button>Aktywuj konto</button>
+        <button *ngIf = "checkIfUserIsEnabled()" (click) = "blockAccount()" style = "color: white; background-color: #800000;" mat-raised-button>Zablokuj konto</button>
+        <h3 class = "paragraph-header">Usuwanie użytkownika</h3>
+
+        <div *ngIf = "deleteConfirmConfig.visible" class = "confContainer">
+            <app-confirmation  [buttonMsg] = "deleteConfirmConfig.buttonMsg" [msg] = "deleteConfirmConfig.msg" (confirmation) = "confirmDelete($event)" (cancelation) = "cancelDelete($event)"></app-confirmation>
+        </div>
+        <button (click) = "delete()" style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
+
+    </mat-card-content>
+    </mat-card>
+</div>
+

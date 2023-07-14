@@ -84,9 +84,9 @@ public changeOrderStatus(order : Order): Observable<HttpResponse<Object>>{
 
 }
 
-public deleteOrder(id: string): Observable<HttpResponse<Object>>{
+public deleteOrder(id: number): Observable<Object>{
 
-  return this.httpClient.delete(this.deleteOrderUrl + id, {observe : 'response', responseType : 'text'});
+  return this.httpClient.delete(this.deleteOrderUrl + id, {observe : 'body', responseType : 'text'});
 }
 
 public getOrderSortingParameters(): Observable<Array<OrderSortingParametersDto>>{

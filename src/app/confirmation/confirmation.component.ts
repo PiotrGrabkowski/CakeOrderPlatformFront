@@ -20,7 +20,7 @@ export class ConfirmationComponent implements OnInit {
   @Input() 
   msg : string;
   @Input() 
-  buttonMsg : string;
+  buttonMsg : string = 'Potwierdź';
 
   constructor() { }
 
@@ -38,4 +38,10 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
+}
+export class ConfirmationComponentConfig{
+  buttonDisabled : boolean;
+  msg : string;
+  buttonMsg : string;
+  visible : boolean;
 }

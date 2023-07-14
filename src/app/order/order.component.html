@@ -35,7 +35,7 @@
         <mat-form-field>
             <mat-label>Wybierz smaki</mat-label>
             <mat-select formControlName = setOfTastes multiple>
-                <mat-option *ngFor = "let taste of arrayOfTastes" [value] = "taste">{{taste}}</mat-option>
+                <mat-option *ngFor = "let taste of listOfTastes" [value] = "taste.name">{{taste.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>

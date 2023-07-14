@@ -1,8 +1,9 @@
 
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { ConfirmationComponentConfig } from '../confirmation/confirmation.component';
 import { DateParserService } from '../date-parser.service';
 import { DisplayingComponentsSmoothlyService } from '../displaying-components-smoothly.service';
 import { Order } from '../model/Order';
@@ -18,12 +19,16 @@ export class OrderDetailsComponent implements OnInit {
   order : Order;
   creationDate : string;
   statusStyle : string;
-  confVisibleDel = false;
-  buttonMsgDel = 'Usuń';
-  msgDel = 'Czy na pewno usunąć zamówienie?';
-  confVisibleStat = false;
-  buttonMsgStat = 'Zmień';
-  msgStat = 'Czy na pewno zmienić status zamówienia?';
+
+  isSpinnerDisplayed : boolean = false;
+  msg = 'Ususwanie zamówienia...';
+
+  
+
+  statusChangeConfirmConfig : ConfirmationComponentConfig = new ConfirmationComponentConfig();
+  deleteConfirmConfig : ConfirmationComponentConfig = new ConfirmationComponentConfig();
+  
+  
   statusChangeResponse;
 
   isViewDisplayedForAdmin : boolean = false;
@@ -33,12 +38,24 @@ export class OrderDetailsComponent implements OnInit {
   
 
   
-  constructor(private orderService : OrderHttpService,
+  constructor(private router : Router, private orderService : OrderHttpService,
     private displayer : DisplayingComponentsSmoothlyService,
     private activatedRoute : ActivatedRoute,
     private parser: DateParserService) { }
 
   ngOnInit(): void {
+    this.statusChangeConfirmConfig.visible = false;
+    this.statusChangeConfirmConfig.buttonMsg = 'Zmień';
+    this.statusChangeConfirmConfig.msg = 'Czy na pewno zmienić status zamówienia?';
+
+    this.deleteConfirmConfig.visible = false;
+    this.deleteConfirmConfig.buttonMsg = 'Usuń';
+    this.deleteConfirmConfig.msg = 'Czy na pewno usunąć zamówienie?';
+
+
+
+  
+ 
     this.displayer.dipslayFromBottom('my-mat-card');
     
     this.activatedRoute.paramMap.pipe(switchMap((params : Params)=> {
@@ -57,7 +74,7 @@ export class OrderDetailsComponent implements OnInit {
   }
   public updateStat(stat : string){
     this.order.orderStatus = stat;
-    this.confVisibleStat = true;
+    this.statusChangeConfirmConfig.visible = true;
 
   }
 
@@ -66,7 +83,7 @@ export class OrderDetailsComponent implements OnInit {
       this.statusChangeResponse = response.body.toString();
       let paragraph = document.getElementById('statusChangeResponseId');
       paragraph.style.display = 'block';
-      this.confVisibleStat = false;
+      this.statusChangeConfirmConfig.visible = false;
       if(response.status === 200 ){
         this.setStatusStyle(this.order);
 
@@ -88,16 +105,30 @@ export class OrderDetailsComponent implements OnInit {
 
 
   public cancelStat(event){
-    this.confVisibleStat = false;
+    
+    this.statusChangeConfirmConfig.visible = false;
     
 
   }
+  public deleteOrder(){
+    this.deleteConfirmConfig.visible = true;
+    
+  }
   public confirmDel(event){
+    
+    this.isSpinnerDisplayed = true;
+    this.orderService.deleteOrder(this.order.id).subscribe(response =>{
+      
+      this.router.navigate(['responseView/' + response]);
+      this.isSpinnerDisplayed = false;
+
+    });
 
 
   }
 
   public cancelDel(event){
+    this.deleteConfirmConfig.visible = false;
 
 
   }
@@ -117,6 +148,14 @@ export class OrderDetailsComponent implements OnInit {
     }
 
 
+  }
+  public getImageSrc(){
+    if(this.order.image !== null){
+      return this.order.image.url;
+    }
+    else{
+      return null;
+    }
   }
 
   

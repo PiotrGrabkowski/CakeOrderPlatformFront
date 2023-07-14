@@ -24,8 +24,8 @@
     <h3 class = "paragraph-header">Data złożenia zamówienia</h3>
     <p>{{creationDate}}</p>
     <h3 *ngIf = "isViewDisplayedForAdmin"class = "paragraph-header">Zmiana statusu zamówienia</h3>
-    <div *ngIf = "confVisibleStat" class = "confContainer">
-        <app-confirmation  [buttonMsg] = "buttonMsgStat" [msg] = "msgStat" (confirmation) = "confirmStat($event)" (cancelation) = "cancelStat($event)"></app-confirmation>
+    <div *ngIf = "statusChangeConfirmConfig.visible" class = "confContainer">
+        <app-confirmation [buttonMsg] = "statusChangeConfirmConfig.buttonMsg" [msg] = "statusChangeConfirmConfig.msg" (confirmation) = "confirmStat($event)" (cancelation) = "cancelStat($event)"></app-confirmation>
     </div>
     <div id = "statusChangeResponseId">
        <div class = "responseMessage">
@@ -41,12 +41,16 @@
     <button *ngIf = "order.orderStatus !== 'NEW' && isViewDisplayedForAdmin" (click) = "updateStat('NEW')" mat-raised-button style = "color: white; background-color: #FFA500;">Nowe</button>
     
     <h3 *ngIf = "isViewDisplayedForAdmin" class = "paragraph-header">Usuwanie zamówienia</h3>
-    <div *ngIf = "confVisibleStat" class = "confContainer">
-        <app-confirmation *ngIf = "confVisibleDel" [buttonMsg] = "buttonMsgDel" [msg] = "msgDel" (confirmation) = "confirmDel($event)" (cancelation) = "cancelDel($event)"></app-confirmation>
+    <app-spinner [msg] = "msg" *ngIf = "isSpinnerDisplayed"></app-spinner>
+    <div *ngIf = "deleteConfirmConfig.visible" class = "confContainer">
+        <app-confirmation  [buttonMsg] = "deleteConfirmConfig.buttonMsg" [msg] = "deleteConfirmConfig.msg" (confirmation) = "confirmDel($event)" (cancelation) = "cancelDel($event)"></app-confirmation>
     </div>
-    <button *ngIf = "isViewDisplayedForAdmin" style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
+
+
+
+    <button (click) = "deleteOrder()" *ngIf = "isViewDisplayedForAdmin" style = "color: white; background-color: #800000;" mat-raised-button>Usuń</button>
     <h3 class = "paragraph-header">Przykładowe zdjęcie</h3>
-    <img [src] = order.image.url>
+    <img [src] = "getImageSrc()">
 </mat-card-content>
 </mat-card>
 </div>
